@@ -3,14 +3,92 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Jesta Admin</title>
+    <title>ג'סטה | ממשק ניהול</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        #pre-bootstrap {
+            opacity: 1;
+            visibility: visible;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            z-index: 10000;
+        }
+        
+        app-root:not(:empty)+#pre-bootstrap {
+            opacity: 0;
+            visibility: hidden;
+            z-index: -1;
+            transition: .5s ease-in-out;
+        }
+        
+        #pre-bootstrap>.pre-boot-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -55%);
+        }
+        
+        #pre-bootstrap img {
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        #pre-bootstrap .bar-loader {
+            position: relative;
+            height: 4px;
+            width: 75%;
+            max-width: 250px;
+            background: #ddd;
+            overflow: hidden;
+            margin: 32px auto;
+        }
+        
+        #pre-bootstrap .bar-loader>.bar {
+            display: block;
+            position: absolute;
+            height: 100%;
+            width: 40%;
+            background: #222;
+            margin-left: -100%;
+            animation: bar-motion 1s ease-out infinite;
+        }
+        
+        @keyframes bar-motion {
+            0% {
+                width: 40%;
+                margin-left: -100%;
+            }
+            50% {
+                width: 100%;
+                margin-left: 100%;
+            }
+            100% {
+                width: 40%;
+                margin-left: -100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <app-root></app-root>
+
+    <div id="pre-bootstrap">
+        <div class="pre-boot-content">
+            <img src="assets/jesta_square_black.svg" alt="לוגו ג'סטה" />
+            <div class="bar-loader">
+                <i class="bar"></i>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

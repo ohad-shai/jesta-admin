@@ -1,1 +1,269 @@
-/* You can add global styles to this file, and also import other style files */
+/*==============================================
+Table of Contents:
+------------------
+    (1) - CSS Reset
+    (2) - Variables
+        (2.1) - Units
+        (2.2) - Themes
+    (3) - General HTML Formatting
+    (4) - General Classes
+        (4.1) - Colors
+        (4.2) - Custom Font Icons
+        (4.3) - Buttons
+        (4.4) - Form Controls
+        (4.5) - General Modules
+        (4.6) - Layouting
+        (4.7) - Typography
+        (4.8) - Sizing
+        (4.9) - Interactions
+        (4.10) - Other
+    (5) - Main Layout
+        (5.1) - Main Header
+        (5.2) - Main Content
+        (5.3) - Main Footer
+    (6) - Page Styles
+        (6.1) - Home
+        (6.2) - About
+==============================================*/
+
+
+/* #region  (1) - CSS Reset  */
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* #endregion */
+
+
+/* #region  (2) - Variables */
+
+
+/* #region  (2.1) - Units */
+
+:root {
+    --header-height: 7.5rem;
+    --header-height-mobile: 6rem;
+    --txt-sm: 1.15rem;
+    --txt-md: 1.5rem;
+    --txt-lg: 1.85rem;
+    --txt-xl: 2.15rem;
+    --color-accent: #d82e2e;
+    --color-sky: #2c8aef;
+}
+
+
+/* #endregion */
+
+
+/* #region  (2.2) - Themes */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region  (3) - General HTML Formatting */
+
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 17px;
+}
+
+body {
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: "Verdana";
+    color: var(--color-text);
+    background: var(--color-background-invert);
+    overflow-x: hidden;
+}
+
+
+/* #endregion */
+
+
+/* #region  (5) - Main Layout */
+
+
+/* #region  (5.3) - Main Footer */
+
+.main-footer {
+    width: 100%;
+    bottom: 0;
+    background-color: #f8f8f8;
+    position: fixed;
+    z-index: 1;
+}
+
+.main-footer ul {
+    width: 100%;
+    text-align: center;
+}
+
+.main-footer ul li {
+    display: inline-block;
+    padding: 0.3125rem 0.5625rem 0.3125rem 0.5625rem;
+}
+
+.main-footer ul li a {
+    color: #b3b3b3;
+    font-size: 0.85rem;
+}
+
+.main-footer ul li a:hover {
+    color: #444444;
+    text-decoration: underline;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
