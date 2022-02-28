@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatToolbar } from '@angular/material/toolbar';
+import { ScreenUtil } from 'src/app/core/utilities/screen.util';
 
 @Component({
   selector: 'app-layout',
@@ -6,5 +9,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
+  isSidenavOpened = true;
+  @ViewChild('toolbar', { static: true }) toolbar!: MatToolbar;
+  @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
+
+  constructor(public screenUtil: ScreenUtil) {
+  }
+
+  ngOnInit() {
+    this.updateSideNavState();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateSideNavState();
+  }
+
+  private updateSideNavState() {
+    let toolbarHeight = (<HTMLElement>this.toolbar._elementRef.nativeElement).getBoundingClientRect().height;
+    this.sidenav.fixedTopGap = toolbarHeight;
+    this.isSidenavOpened = !this.screenUtil.isLowerThanSM();
+  }
 
 }

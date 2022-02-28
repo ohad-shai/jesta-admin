@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="rtl">
 
 <head>
     <meta charset="utf-8">
@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         #pre-bootstrap {
+            direction: ltr;
             opacity: 1;
             visibility: visible;
             position: absolute;
@@ -21,26 +22,26 @@
             background: #ffffff;
             z-index: 10000;
         }
-        
+
         app-root:not(:empty)+#pre-bootstrap {
             opacity: 0;
             visibility: hidden;
             z-index: -1;
             transition: .5s ease-in-out;
         }
-        
+
         #pre-bootstrap>.pre-boot-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -55%);
         }
-        
+
         #pre-bootstrap img {
             width: 100%;
             max-width: 350px;
         }
-        
+
         #pre-bootstrap .bar-loader {
             position: relative;
             height: 4px;
@@ -50,7 +51,7 @@
             overflow: hidden;
             margin: 32px auto;
         }
-        
+
         #pre-bootstrap .bar-loader>.bar {
             display: block;
             position: absolute;
@@ -60,16 +61,18 @@
             margin-left: -100%;
             animation: bar-motion 1s ease-out infinite;
         }
-        
+
         @keyframes bar-motion {
             0% {
                 width: 40%;
                 margin-left: -100%;
             }
+
             50% {
                 width: 100%;
                 margin-left: 100%;
             }
+
             100% {
                 width: 40%;
                 margin-left: -100%;

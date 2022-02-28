@@ -3,12 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class NotificationService {
 
   constructor() { }
-
-  getCurrentUser() {
-    return null;
-  }
-
+  
 }

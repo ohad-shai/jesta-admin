@@ -1,0 +1,29 @@
+@import "/src/styles/variables";
+
+/* #region  Breakpoints */
+
+@mixin break-xs() {
+    @media screen and (min-width: $max-width-screen-xs) {
+        @content;
+    }
+}
+
+@mixin break-sm() {
+    @media screen and (min-width: $max-width-screen-sm) {
+        @content;
+    }
+}
+
+@mixin break-md() {
+    @media screen and (min-width: $max-width-screen-md) {
+        @content;
+    }
+}
+
+@mixin break-lg() {
+    @media screen and (min-width: $max-width-screen-lg) {
+        @content;
+    }
+}
+
+/* #endregion */

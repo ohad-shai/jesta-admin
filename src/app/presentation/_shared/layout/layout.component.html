@@ -1,3 +1,37 @@
-<h1>Layout here</h1>
-
-<router-outlet></router-outlet>
+<!-- Toolbar -->
+<mat-toolbar #toolbar class="main-header">
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon class="hamburger">menu</mat-icon>
+    </button>
+    <div>ג'סטה</div>
+</mat-toolbar>
+<mat-sidenav-container>
+    <!-- Sidenav -->
+    <mat-sidenav #sidenav [mode]="screenUtil.isLowerThanSM() ? 'over' : 'side'" [(opened)]="isSidenavOpened"
+        [fixedInViewport]="true" [fixedTopGap]>
+        <mat-nav-list>
+            <a mat-list-item>
+                <mat-icon class="ml-2">dashboard</mat-icon> תקציר
+            </a>
+            <a mat-list-item>
+                <mat-icon class="ml-2">people</mat-icon> משתמשים
+            </a>
+            <a mat-list-item>
+                <mat-icon class="ml-2">content_paste</mat-icon> ג'סטות
+            </a>
+            <a mat-list-item>
+                <mat-icon class="ml-2">leaderboard</mat-icon> תחרויות
+            </a>
+            <a mat-list-item>
+                <mat-icon class="ml-2">local_police</mat-icon> מנהלים
+            </a>
+            <a mat-list-item>
+                <mat-icon class="ml-2">settings</mat-icon> הגדרות
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <!-- Main content -->
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

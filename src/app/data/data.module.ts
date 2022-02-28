@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { throwIfAlreadyLoaded } from '../core/guards/module-import.guard';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,4 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 
   ]
 })
-export class DataModule { }
+export class DataModule {
+  constructor(@Optional() @SkipSelf() parentModule: DataModule) {
+    throwIfAlreadyLoaded(parentModule, 'DataModule');
+  }
+}
