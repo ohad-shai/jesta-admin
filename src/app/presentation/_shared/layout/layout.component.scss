@@ -1,7 +1,7 @@
 @import "/src/styles/context.scss";
 
 .main-header {
-    height: var(--main-header-height);
+    height: $main-header-height-xs;
     background: var(--color-white);
     border-bottom: 0.0625rem solid #eee;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
@@ -10,9 +10,42 @@
     z-index: 1000;
 
     @include break-sm() {
+        height: $main-header-height-sm;
         padding: 0 0.5rem;
     }
+    @include break-lg() {
+        height: $main-header-height-lg;
+        padding: 0 1rem;
+    }
 }
+
+.main-logo {
+    display: inline-block;
+    height: 65%;
+    width: 5rem;
+    background-image: url("/assets/jesta_black.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
+
+    @include break-sm() {
+        width: 5.5rem;
+    }
+    @include break-lg() {
+        width: 6rem;
+    }
+}
+
+.main-logo > a {
+    height: 100%;
+    display: block;
+}
+
+.navbar-spacer {
+  flex: 1 1 auto;
+}
+
 
 mat-sidenav {
     min-width: 16rem;
@@ -30,5 +63,11 @@ mat-sidenav {
 
 mat-sidenav-content {
     min-height: 100vh;
-    padding-top: var(--main-header-height);
+    padding-top: $main-header-height-xs;
+    @include break-sm() {
+        padding-top: $main-header-height-sm;
+    }
+    @include break-lg() {
+        padding-top: $main-header-height-lg;
+    }
 }

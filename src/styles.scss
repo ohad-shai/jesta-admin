@@ -4,11 +4,10 @@
 
 :root {
     // Dimensions:
-    --main-header-height: 3rem;
-    --txt-sm: 1.15rem;
-    --txt-md: 1.5rem;
-    --txt-lg: 1.85rem;
-    --txt-xl: 2.15rem;
+    --txt-sm: #{$font-size-sm};
+    --txt-md: #{$font-size-md};
+    --txt-lg: #{$font-size-lg};
+    --txt-xl: #{$font-size-xl};
     // Colors - General:
     --color-white: #fff;
     --color-black: #000;
@@ -25,13 +24,6 @@
     --color-text: #222;
     --color-text-title: #444;
     --color-separator: #e5e5e5;
-
-    @include break-sm() {
-        --main-header-height: 3.5rem; // 56px
-    }
-    @include break-lg() {
-        --main-header-height: 4rem; // 64px
-    }
 }
 
 /* #region  (1) - General HTML Formatting */
@@ -48,13 +40,13 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: $remSize;
 }
 
 body {
-    font-size: 1rem;
+    font-size: var(--txt-sm);
     font-weight: 400;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: $font-family-general;
     color: var(--color-text);
     background: var(--color-background-invert);
     overflow-x: hidden;
@@ -387,6 +379,15 @@ body {
 
 .txt-accent {
     color: var(--color-accent) !important;
+}
+
+/* #endregion */
+
+/* #region  Material Override */
+
+.mat-list-base .mat-list-item-lg,
+.mat-list-base .mat-list-option-lg {
+    height: 3.5rem !important;
 }
 
 /* #endregion */

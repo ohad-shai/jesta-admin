@@ -1,31 +1,52 @@
 <!-- Toolbar -->
 <mat-toolbar #toolbar class="main-header">
     <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon class="hamburger">menu</mat-icon>
+        <mat-icon>menu</mat-icon>
     </button>
-    <div>ג'סטה</div>
+    <h1 class="main-logo">
+        <a [routerLink]="['/']">בית</a>
+    </h1>
+    <span class="navbar-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+        <span fxShow fxHide.xs class="mr-1">
+            אוהד
+        </span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+        <a mat-menu-item [routerLink]="['/account/profile']">
+            <mat-icon>person</mat-icon>
+            <span>הגדרות חשבון</span>
+        </a>
+        <a mat-menu-item [routerLink]="['/login']">
+            <mat-icon>logout</mat-icon>
+            <span>התנתקות</span>
+        </a>
+    </mat-menu>
+
 </mat-toolbar>
 <mat-sidenav-container>
     <!-- Sidenav -->
     <mat-sidenav #sidenav [mode]="screenUtil.isLowerThanSM() ? 'over' : 'side'" [(opened)]="isSidenavOpened"
         [fixedInViewport]="true" [fixedTopGap]>
         <mat-nav-list>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">dashboard</mat-icon> תקציר
             </a>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/users']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">people</mat-icon> משתמשים
             </a>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/favors']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">content_paste</mat-icon> ג'סטות
             </a>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/competitions']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">leaderboard</mat-icon> תחרויות
             </a>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/admins']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">local_police</mat-icon> מנהלים
             </a>
-            <a mat-list-item>
+            <a mat-list-item [routerLink]="['/settings']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">settings</mat-icon> הגדרות
             </a>
         </mat-nav-list>
