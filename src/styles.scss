@@ -381,9 +381,124 @@ body {
     color: var(--color-accent) !important;
 }
 
+.bg-light-gradient {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eeeeee+0,ffffff+30,ffffff+70,eeeeee+100 */
+    background: rgb(238, 238, 238); /* Old browsers */
+    background: -moz-linear-gradient(
+        -45deg,
+        rgba(238, 238, 238, 1) 0%,
+        rgba(255, 255, 255, 1) 30%,
+        rgba(255, 255, 255, 1) 70%,
+        rgba(238, 238, 238, 1) 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+        -45deg,
+        rgba(238, 238, 238, 1) 0%,
+        rgba(255, 255, 255, 1) 30%,
+        rgba(255, 255, 255, 1) 70%,
+        rgba(238, 238, 238, 1) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+        135deg,
+        rgba(238, 238, 238, 1) 0%,
+        rgba(255, 255, 255, 1) 30%,
+        rgba(255, 255, 255, 1) 70%,
+        rgba(238, 238, 238, 1) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+/* #endregion */
+
+/* #region  (4) - Fonts */
+
+.font-weight-thin {
+    font-weight: 200 !important;
+}
+
+.font-weight-normal {
+    font-weight: 400 !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+/* #endregion */
+
+/* #region  (5) - Layouting */
+
+.center-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.flex-jc-center {
+    justify-content: center;
+}
+
+.flex-jc-end {
+    justify-content: end;
+}
+
+.flex-jc-between {
+    justify-content: space-between;
+}
+
+.flex-ai-start {
+    align-items: flex-start !important;
+}
+
+.flex-ai-end {
+    align-items: flex-end !important;
+}
+
+.flex-ai-center {
+    align-items: center !important;
+}
+
+.flex-dir-col {
+    flex-direction: column !important;
+}
+
+.flex-dir-row {
+    flex-direction: row !important;
+}
+
+/* #endregion */
+
+/* #region  (6) - Typography */
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
 /* #endregion */
 
 /* #region  Material Override */
+
+[class^="mat-"]:not(.mat-icon),
+[class^="mat-"] *:not(.mat-icon) {
+    font-family: $font-family-general !important;
+}
 
 .mat-list-base .mat-list-item-lg,
 .mat-list-base .mat-list-option-lg {

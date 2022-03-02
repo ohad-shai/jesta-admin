@@ -1,8 +1,10 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { DataModule } from './data/data.module';
 import { PresentationModule } from './presentation/presentation.module';
 
 @NgModule({
@@ -12,10 +14,11 @@ import { PresentationModule } from './presentation/presentation.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CoreModule,
+    DataModule,
     PresentationModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
