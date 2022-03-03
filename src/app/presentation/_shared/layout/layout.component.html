@@ -1,18 +1,20 @@
 <!-- Toolbar -->
 <mat-toolbar #toolbar class="main-header">
-    <button mat-icon-button (click)="sidenav.toggle()">
+    <button mat-icon-button type="button" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="main-logo">
-        <a [routerLink]="['/']">בית</a>
-    </h1>
+    <a mat-button type="button" class="main-logo" [routerLink]="['/']"></a>
+
     <span class="navbar-spacer"></span>
 
-    <button mat-button [matMenuTriggerFor]="userMenu">
+    <button *ngIf="screenUtil.isHigherThanXS()" mat-button type="button" [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-        <span fxShow fxHide.xs class="mr-1">
+        <span class="mr-1">
             אוהד
         </span>
+    </button>
+    <button *ngIf="screenUtil.isXS()" mat-icon-button type="button" [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
         <a mat-menu-item [routerLink]="['/account/profile']">

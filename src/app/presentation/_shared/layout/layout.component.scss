@@ -21,13 +21,12 @@
 
 .main-logo {
     display: inline-block;
-    height: 65%;
+    height: 75%;
     width: 5rem;
     background-image: url("/assets/jesta_black.svg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    text-indent: -9999px;
 
     @include break-sm() {
         width: 5.5rem;
@@ -37,15 +36,9 @@
     }
 }
 
-.main-logo > a {
-    height: 100%;
-    display: block;
-}
-
 .navbar-spacer {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
-
 
 mat-sidenav {
     min-width: 16rem;

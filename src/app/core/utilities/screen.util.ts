@@ -51,6 +51,38 @@ export class ScreenUtil {
     }
 
     /**
+     * Checks whether the current screen width is higher than XS.
+     * @returns Returns true if the current screen width is higher than XS, otherwise false.
+     */
+    public isHigherThanXS(): boolean {
+        return !this.isLowerThanXS();
+    }
+
+    /**
+    * Checks whether the current screen width is higher than SM.
+    * @returns Returns true if the current screen width is higher than SM, otherwise false.
+    */
+    public isHigherThanSM(): boolean {
+        return !this.isLowerThanSM();
+    }
+
+    /**
+    * Checks whether the current screen width is higher than MD.
+    * @returns Returns true if the current screen width is higher than MD, otherwise false.
+    */
+    public isHigherThanMD(): boolean {
+        return !this.isLowerThanMD();
+    }
+
+    /**
+    * Checks whether the current screen width is higher than LG.
+    * @returns Returns true if the current screen width is higher than LG, otherwise false.
+    */
+    public isHigherThanLG(): boolean {
+        return !this.isLowerThanLG();
+    }
+
+    /**
      * Checks whether the current screen width is XS (and below).
      * @returns Returns true if the current screen width is XS (and below), otherwise false.
      */

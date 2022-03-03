@@ -1,1 +1,51 @@
-<p>login works!</p>
+<div class="center-container bg-gray-diagonal">
+    <div class="w-100 maxw-xs p-4">
+        <form [formGroup]="form">
+            <mat-card class="p-4 p-5-xs">
+                <mat-card-title class="text-center mb-4">התחברות</mat-card-title>
+                <mat-card-content>
+                    <mat-form-field class="w-100" appearance="fill">
+                        <mat-label>דוא"ל</mat-label>
+                        <input type="email" matInput [formControlName]="'email'" autocomplete="email" />
+                        <button type="button" mat-icon-button *ngIf="form.controls['email'].value" matSuffix
+                            aria-label="נקה" (click)="form.controls['email'].reset()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['email'].hasError('required')">
+                            יש להזין כתובת דוא"ל
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['email'].hasError('email')">
+                            כתובת דוא"ל לא תקינה
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['email'].hasError('maxlength')">
+                            אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-100" appearance="fill">
+                        <mat-label>סיסמה</mat-label>
+                        <input type="password" matInput [formControlName]="'password'" autocomplete="off" />
+                        <button type="button" mat-icon-button *ngIf="form.controls['password'].value" matSuffix
+                            aria-label="נקה" (click)="form.controls['password'].reset()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['password'].hasError('required')">
+                            יש להזין סיסמה
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('minlength')">
+                            אורך מינימאלי הוא 6 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('maxlength')">
+                            אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button type="submit" mat-raised-button color="primary" class="w-100 py-1"
+                        [disabled]="form.invalid || formLoading" (click)="performLogin()">כניסה</button>
+                </mat-card-actions>
+                <mat-progress-bar class="overlay-bottom" *ngIf="formLoading" mode="query"></mat-progress-bar>
+            </mat-card>
+        </form>
+    </div>
+</div>
