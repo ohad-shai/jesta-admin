@@ -6,10 +6,12 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './layout/layout.component';
+import { IfScreenDirective } from './directives/if-screen.directive';
 
 @NgModule({
   declarations: [
-    LayoutComponent
+    LayoutComponent,
+    IfScreenDirective
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,9 @@ import { LayoutComponent } from './layout/layout.component';
   exports: [
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LayoutComponent,
+    IfScreenDirective
   ]
 })
 export class SharedModule {

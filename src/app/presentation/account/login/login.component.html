@@ -8,7 +8,7 @@
                         <mat-label>דוא"ל</mat-label>
                         <input type="email" matInput [formControlName]="'email'" autocomplete="email" />
                         <button type="button" mat-icon-button *ngIf="form.controls['email'].value" matSuffix
-                            aria-label="נקה" (click)="form.controls['email'].reset()">
+                            aria-label="נקה" (click)="form.controls['email'].reset()" tabindex="-1">
                             <mat-icon>close</mat-icon>
                         </button>
                         <mat-error *ngIf="form.controls['email'].hasError('required')">
@@ -25,7 +25,7 @@
                         <mat-label>סיסמה</mat-label>
                         <input type="password" matInput [formControlName]="'password'" autocomplete="off" />
                         <button type="button" mat-icon-button *ngIf="form.controls['password'].value" matSuffix
-                            aria-label="נקה" (click)="form.controls['password'].reset()">
+                            aria-label="נקה" (click)="form.controls['password'].reset()" tabindex="-1">
                             <mat-icon>close</mat-icon>
                         </button>
                         <mat-error *ngIf="form.controls['password'].hasError('required')">
