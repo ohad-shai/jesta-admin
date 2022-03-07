@@ -2,19 +2,17 @@
 
 .main-header {
     height: $main-header-height-xs;
+    width: 100%;
+    top: 0;
     background: var(--color-white);
     border-bottom: 0.0625rem solid #eee;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
     position: fixed;
     z-index: 1000;
 
     @include break-sm() {
         height: $main-header-height-sm;
-        padding: 0 0.5rem;
-    }
-    @include break-lg() {
-        height: $main-header-height-lg;
         padding: 0 1rem;
     }
 }
@@ -22,16 +20,13 @@
 .main-logo {
     display: inline-block;
     height: 75%;
-    width: 5rem;
+    width: 5.5rem;
     background-image: url("/assets/jesta_black.svg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 
     @include break-sm() {
-        width: 5.5rem;
-    }
-    @include break-lg() {
         width: 6rem;
     }
 }
@@ -59,8 +54,5 @@ mat-sidenav-content {
     padding-top: $main-header-height-xs;
     @include break-sm() {
         padding-top: $main-header-height-sm;
-    }
-    @include break-lg() {
-        padding-top: $main-header-height-lg;
     }
 }

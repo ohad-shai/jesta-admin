@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent implements OnInit {
     formLoading!: boolean;
     form!: FormGroup;
-    
+
     constructor(private router: Router,
         private titleService: Title,
         private notificationService: NotificationService,
@@ -32,9 +32,13 @@ export class LoginComponent implements OnInit {
     }
 
     performLogin() {
+        if (this.form.invalid || this.formLoading) return; // TODO notification
+
         const email = this.form.controls['email'].value;
         const password = this.form.controls['password'].value;
         const rememberMe = this.form.controls['rememberMe'].value;
+
+        console.log(rememberMe);
 
         this.formLoading = true;
         // this.authService.login(email.toLowerCase(), password)

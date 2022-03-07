@@ -1,13 +1,15 @@
 <div class="center-container bg-gray-diagonal">
     <div class="w-100 maxw-xs p-4">
-        <form [formGroup]="form">
+        <form [formGroup]="form" (submit)="performLogin()">
             <mat-card class="p-4 p-5-xs">
-                <mat-card-title class="text-center mb-4">התחברות</mat-card-title>
+                <img src="/assets/jesta_black.svg" alt="לוגו ג'סטה" class="logo" />
+                <mat-divider [inset]="true" class="mb-5"></mat-divider>
+                <mat-card-title class="text-center mb-4">התחברות מנהל</mat-card-title>
                 <mat-card-content>
-                    <mat-form-field class="w-100" appearance="fill">
+                    <mat-form-field class="w-100" appearance="outline">
                         <mat-label>דוא"ל</mat-label>
-                        <input type="email" matInput [formControlName]="'email'" autocomplete="email" />
-                        <button type="button" mat-icon-button *ngIf="form.controls['email'].value" matSuffix
+                        <input formControlName="email" matInput type="email" autocomplete="email" />
+                        <button mat-icon-button type="button" *ngIf="form.controls['email'].value" matSuffix
                             aria-label="נקה" (click)="form.controls['email'].reset()" tabindex="-1">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -21,10 +23,10 @@
                             אורך מקסימאלי הוא 50 תווים
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="w-100" appearance="fill">
+                    <mat-form-field class="w-100" appearance="outline">
                         <mat-label>סיסמה</mat-label>
-                        <input type="password" matInput [formControlName]="'password'" autocomplete="off" />
-                        <button type="button" mat-icon-button *ngIf="form.controls['password'].value" matSuffix
+                        <input formControlName="password" matInput type="password" autocomplete="off" />
+                        <button mat-icon-button type="button" *ngIf="form.controls['password'].value" matSuffix
                             aria-label="נקה" (click)="form.controls['password'].reset()" tabindex="-1">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -38,11 +40,16 @@
                             אורך מקסימאלי הוא 50 תווים
                         </mat-error>
                     </mat-form-field>
+                    <div class="text-center">
+                        <mat-checkbox formControlName="rememberMe" color="primary" tabindex="-1">
+                            זכור אותי
+                        </mat-checkbox>
+                    </div>
                 </mat-card-content>
 
                 <mat-card-actions>
                     <button type="submit" mat-raised-button color="primary" class="w-100 py-1"
-                        [disabled]="form.invalid || formLoading" (click)="performLogin()">כניסה</button>
+                        [disabled]="form.invalid || formLoading">כניסה</button>
                 </mat-card-actions>
                 <mat-progress-bar class="overlay-bottom" *ngIf="formLoading" mode="query"></mat-progress-bar>
             </mat-card>
