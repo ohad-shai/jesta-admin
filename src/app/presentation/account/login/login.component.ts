@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.titleService.setTitle('ג\'סטה | ממשק ניהול | התחברות');
+        this.titleService.setTitle('ג\'סטה | ניהול | התחברות');
 
         this.form = new FormGroup({
             email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit {
         const password = this.form.controls['password'].value;
         const rememberMe = this.form.controls['rememberMe'].value;
 
-        console.log(rememberMe);
-
         this.formLoading = true;
         // this.authService.login(email.toLowerCase(), password)
         //     .subscribe(
@@ -49,7 +47,7 @@ export class LoginComponent implements OnInit {
         //             } else {
         //                 localStorage.removeItem('savedUserEmail');
         //             }
-        //             this.router.navigate(['/']);
+        //             this.router.navigate(['/dashboard']);
         //         },
         //         error => {
         //             this.notificationService.openSnackBar(error.error);

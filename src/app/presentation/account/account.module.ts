@@ -5,10 +5,12 @@ import { SharedModule } from '../_shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
 
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
-        LoginComponent
+        LoginComponent,
+        ProfileComponent
     ],
     imports: [
         CommonModule,

@@ -10,7 +10,7 @@ export class PageNotFoundComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('ג\'סטה | ממשק ניהול | העמוד לא נמצא');
+    this.titleService.setTitle('ג\'סטה | ניהול | העמוד לא נמצא');
   }
 
 }

@@ -11,7 +11,7 @@ export class DashboardHomeComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('ג\'סטה | ממשק ניהול');
+    this.titleService.setTitle('ג\'סטה | ניהול | תקציר');
   }
 
 }

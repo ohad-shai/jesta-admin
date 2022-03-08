@@ -1,10 +1,10 @@
 <div class="center-container bg-gray-diagonal">
-    <div class="w-100 maxw-xs p-4">
+    <div class="w-100 maxw-xs p-5">
         <form [formGroup]="form" (submit)="performLogin()">
-            <mat-card class="p-4 p-5-xs">
+            <mat-card class="p-5 p-6-xs">
                 <img src="/assets/jesta_black.svg" alt="לוגו ג'סטה" class="logo" />
-                <mat-divider [inset]="true" class="mb-5"></mat-divider>
-                <mat-card-title class="text-center mb-4">התחברות מנהל</mat-card-title>
+                <mat-divider [inset]="true" class="mb-6"></mat-divider>
+                <mat-card-title class="text-center mb-5">התחברות מנהל</mat-card-title>
                 <mat-card-content>
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>דוא"ל</mat-label>
@@ -51,7 +51,7 @@
                     <button type="submit" mat-raised-button color="primary" class="w-100 py-1"
                         [disabled]="form.invalid || formLoading">כניסה</button>
                 </mat-card-actions>
-                <mat-progress-bar class="overlay-bottom" *ngIf="formLoading" mode="query"></mat-progress-bar>
+                <mat-progress-bar class="overlay-bottom" *ngIf="formLoading" mode="indeterminate"></mat-progress-bar>
             </mat-card>
         </form>
     </div>
