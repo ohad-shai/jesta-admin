@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { ValidationBundles } from '../../_shared/validators/validation-bundles';
+import { equals } from '../../_shared/validators/equals.validator';
+import { notEquals } from '../../_shared/validators/not-equals.validator';
 
 @Component({
   selector: 'app-profile',
@@ -35,18 +38,18 @@ export class ProfileComponent implements OnInit {
 
     this.updateEmailSettingValue = "israel@gmail.com";
     this.updateEmailForm = new FormGroup({
-      email: new FormControl('israel@gmail.com', [Validators.required, Validators.email, Validators.maxLength(50)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)])
+      email: new FormControl('israel@gmail.com', ValidationBundles.email()), // TODO: add validator email does not exist.
+      password: new FormControl('', ValidationBundles.password())
     });
 
     this.changePasswordForm = new FormGroup({
-      currentPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
-      newPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
-      newPasswordConfirm: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)])
-    });
+      currentPassword: new FormControl('', ValidationBundles.password()),
+      newPassword: new FormControl('', ValidationBundles.password()),
+      newPasswordConfirm: new FormControl('', ValidationBundles.password())
+    }, { validators: [equals('newPasswordConfirm', 'newPassword'), notEquals('newPassword', 'currentPassword')] });
 
     this.deleteAccountForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)])
+      password: new FormControl('', ValidationBundles.password())
     });
   }
 

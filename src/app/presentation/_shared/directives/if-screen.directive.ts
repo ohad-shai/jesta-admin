@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ScreenUtil } from 'src/app/core/utilities/screen.util';
+import { ScreenUtil } from '../utilities/screen.util';
 
 @Directive({ selector: "[ifScreenAbove], [ifScreenBelow]" })
 export class IfScreenDirective implements OnInit {

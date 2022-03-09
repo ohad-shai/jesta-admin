@@ -1,5 +1,5 @@
 <section class="container">
-    <header class="container-header">
+    <header class="mb-4">
         <h1 class="title-1">הגדרות חשבון</h1>
     </header>
 
@@ -10,10 +10,10 @@
                 <mat-panel-title>שם מלא</mat-panel-title>
                 <mat-panel-description>{{ updateNameSettingValue }}</mat-panel-description>
             </mat-expansion-panel-header>
-            <section class="p-1 p-2-xs">
+            <section class="p-1 xs-p-2">
                 <form [formGroup]="updateNameForm" (submit)="updateName()">
                     <h2 class="mb-3">עידכון שם מלא</h2>
-                    <div class="d-flex flex-col gap-0 flex-row-lg gap-3-lg w-100 maxw-xxs">
+                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>שם פרטי</mat-label>
                             <input formControlName="firstName" matInput type="text" autocomplete="given-name" />
@@ -59,10 +59,10 @@
                 <mat-panel-title>דוא"ל</mat-panel-title>
                 <mat-panel-description>{{ updateEmailSettingValue }}</mat-panel-description>
             </mat-expansion-panel-header>
-            <section class="p-1 p-2-xs">
+            <section class="p-1 xs-p-2">
                 <form [formGroup]="updateEmailForm" (submit)="updateEmail()">
                     <h2 class="mb-3">עידכון כתובת דוא"ל</h2>
-                    <div class="d-flex flex-col gap-0 flex-row-lg gap-3-lg w-100 maxw-xxs">
+                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>דוא"ל</mat-label>
                             <input formControlName="email" matInput type="email" autocomplete="email" />
@@ -113,10 +113,10 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>שינוי סיסמה</mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="p-1 p-2-xs">
+            <section class="p-1 xs-p-2">
                 <form [formGroup]="changePasswordForm" (submit)="changePassword()">
                     <h2 class="mb-3">שינוי סיסמה</h2>
-                    <div class="d-flex flex-col gap-0 flex-row-lg gap-3-lg w-100 maxw-xxs">
+                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה נוכחית</mat-label>
                             <input formControlName="currentPassword" matInput type="password" autocomplete="off" />
@@ -152,6 +152,9 @@
                             <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
                             </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('notEquals')">
+                                יש להזין סיסמה שונה מהנוכחית
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה חדשה שוב</mat-label>
@@ -171,6 +174,9 @@
                             <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
                             </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('equals')">
+                                הסיסמאות אינן זהות
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <button type="submit" mat-raised-button color="primary" class=" py-1 px-5"
@@ -186,12 +192,12 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>מחיקת חשבון</mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="p-1 p-2-xs">
+            <section class="p-1 xs-p-2">
                 <form [formGroup]="deleteAccountForm" (submit)="deleteAccount()">
                     <h2 class="mb-3">מחיקת חשבון</h2>
                     <p class="txt-danger mb-3">אזהרה: פעולה זאת תמחק את החשבון לצמיתות ולא יהיה ניתן לשחזר מידע זה
                         בעתיד!</p>
-                    <div class="d-flex flex-col gap-0 flex-row-lg gap-3-lg w-100 maxw-xxs">
+                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה לצורך אבטחה</mat-label>
                             <input formControlName="password" matInput type="password" autocomplete="off" />

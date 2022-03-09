@@ -1,7 +1,7 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
-import { ScreenUtil } from 'src/app/core/utilities/screen.util';
+import { ScreenUtil } from '../utilities/screen.util';
 
 @Component({
   selector: 'app-layout',

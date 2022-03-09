@@ -11,7 +11,7 @@
     position: fixed;
     z-index: 1000;
 
-    @include break-sm() {
+    @include break-above-sm() {
         height: $main-header-height-sm;
         padding: 0 1rem;
     }
@@ -26,7 +26,7 @@
     background-repeat: no-repeat;
     background-position: center;
 
-    @include break-sm() {
+    @include break-above-sm() {
         width: 6rem;
     }
 }
@@ -40,11 +40,11 @@ mat-sidenav {
     border-right: 0.0625rem solid #eee;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 
-    @include break-md() {
+    @include break-above-md() {
         min-width: 18rem;
     }
 
-    @include break-lg() {
+    @include break-above-lg() {
         min-width: 20rem;
     }
 }
@@ -52,7 +52,7 @@ mat-sidenav {
 mat-sidenav-content {
     min-height: 100vh;
     padding-top: $main-header-height-xs;
-    @include break-sm() {
+    @include break-above-sm() {
         padding-top: $main-header-height-sm;
     }
 }

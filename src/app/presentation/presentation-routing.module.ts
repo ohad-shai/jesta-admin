@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./_general/general.module').then(m => m.GeneralModule),
+    loadChildren: () => import('./general/general.module').then(m => m.GeneralModule),
   }
 ];
 

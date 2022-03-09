@@ -2,25 +2,25 @@
 
 /* #region  Breakpoints */
 
-@mixin break-xs() {
+@mixin break-above-xs() {
     @media screen and (min-width: $max-width-screen-xs) {
         @content;
     }
 }
 
-@mixin break-sm() {
+@mixin break-above-sm() {
     @media screen and (min-width: $max-width-screen-sm) {
         @content;
     }
 }
 
-@mixin break-md() {
+@mixin break-above-md() {
     @media screen and (min-width: $max-width-screen-md) {
         @content;
     }
 }
 
-@mixin break-lg() {
+@mixin break-above-lg() {
     @media screen and (min-width: $max-width-screen-lg) {
         @content;
     }
