@@ -15,8 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 
   ]
 })
-export class DataModule {
-  constructor(@Optional() @SkipSelf() parentModule: DataModule) {
-    throwIfAlreadyLoaded(parentModule, 'DataModule');
+export class DomainModule {
+  constructor(@Optional() @SkipSelf() parentModule: DomainModule) {
+    throwIfAlreadyLoaded(parentModule, 'DomainModule');
   }
 }

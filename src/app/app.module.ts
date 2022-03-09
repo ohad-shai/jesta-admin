@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { DataModule } from './data/data.module';
+import { DomainModule } from './domain/domain.module';
 import { PresentationModule } from './presentation/presentation.module';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { PresentationModule } from './presentation/presentation.module';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    DataModule,
+    DomainModule,
     PresentationModule
   ],
   providers: [],

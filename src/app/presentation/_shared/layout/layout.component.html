@@ -30,10 +30,11 @@
     <!-- Sidenav -->
     <mat-sidenav #sidenav [mode]="screenUtil.isLowerThanSM() ? 'over' : 'side'" [(opened)]="isSidenavOpened"
         [fixedInViewport]="true" [fixedTopGap]>
-        <mat-nav-list>
+        <mat-nav-list class="pb-2">
             <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">dashboard</mat-icon> תקציר
             </a>
+            <mat-divider class="my-2"></mat-divider>
             <a mat-list-item [routerLink]="['/users']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">people</mat-icon> משתמשים
             </a>
@@ -43,11 +44,19 @@
             <a mat-list-item [routerLink]="['/competitions']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">leaderboard</mat-icon> תחרויות
             </a>
-            <a mat-list-item [routerLink]="['/admins']" routerLinkActive="active" class="mat-list-item-lg">
+            <mat-divider class="my-2"></mat-divider>
+            <a mat-list-item [routerLink]="['/contacts']" routerLinkActive="active" class="mat-list-item-lg">
+                <mat-icon class="ml-2">message</mat-icon> יצירות קשר
+            </a>
+            <a mat-list-item [routerLink]="['/reports']" routerLinkActive="active" class="mat-list-item-lg">
+                <mat-icon class="ml-2">report</mat-icon> דיווחים
+            </a>
+            <mat-divider class="my-2"></mat-divider>
+            <a mat-list-item [routerLink]="['/managers']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">local_police</mat-icon> מנהלים
             </a>
             <a mat-list-item [routerLink]="['/settings']" routerLinkActive="active" class="mat-list-item-lg">
-                <mat-icon class="ml-2">settings</mat-icon> הגדרות
+                <mat-icon class="ml-2">settings</mat-icon> הגדרות מערכת
             </a>
         </mat-nav-list>
     </mat-sidenav>
