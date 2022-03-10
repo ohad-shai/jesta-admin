@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './layout/layout.component';
 import { IfScreenDirective } from './directives/if-screen.directive';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorHebrew } from './components/mat-paginator-hebrew';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,9 @@ import { IfScreenDirective } from './directives/if-screen.directive';
     ReactiveFormsModule,
     LayoutComponent,
     IfScreenDirective
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorHebrew }
   ]
 })
 export class SharedModule {

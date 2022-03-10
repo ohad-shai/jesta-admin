@@ -65,6 +65,15 @@ input:-webkit-autofill:active {
     transition: background-color 999999s linear 0s;
 }
 
+table {
+    width: 100%;
+}
+
+th,
+td {
+    vertical-align: middle;
+}
+
 /* #endregion */
 
 /* #region  (2) - Colors */
@@ -188,11 +197,36 @@ input:-webkit-autofill:active {
 
 /* #endregion */
 
+/* #region  Tables */
+
+.table-wrapper {
+    position: relative;
+}
+
+.table-wrapper .table-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #endregion */
+
 /* #region  Material Override */
 
 [class^="mat-"]:not(.mat-icon),
 [class^="mat-"] *:not(.mat-icon) {
     font-family: $font-family-general !important;
+}
+
+.mat-list-item.active {
+    background: rgba(0, 0, 0, 0.08) !important;
 }
 
 .mat-list-base .mat-list-item-lg,
@@ -222,6 +256,16 @@ input:-webkit-autofill:active {
     @include break-above-lg() {
         padding: 2.25rem !important;
     }
+}
+
+.mat-row:hover,
+.mat-sort-header:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-no-data {
+    text-align: center;
+    padding: $space-5 !important;
 }
 
 /* #endregion */

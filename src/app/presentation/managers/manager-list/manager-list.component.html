@@ -3,6 +3,46 @@
         <h1 class="title-1">מנהלים</h1>
     </header>
 
-    <mat-card>
+    <mat-card class="mat-elevation-z4">
+        <div class="table-wrapper mb-2">
+            <table mat-table recycleRows [dataSource]="tableDataSource" matSort matSortDirection="desc">
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="symbol">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="tableColumns" class="cursor-pointer"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: tableColumns;" class="cursor-pointer"></mat-row>
+
+                <!-- If no data: -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell mat-no-data" colspan="4">אין נתונים</td>
+                </tr>
+            </table>
+            <!-- If loading: -->
+            <div class="table-loading" *ngIf="tableLoading">
+                <mat-progress-bar class="overlay-top" mode="query"></mat-progress-bar>
+                <mat-spinner *ngIf="(managers.length > 2)"></mat-spinner>
+                <mat-progress-bar class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
+            </div>
+        </div>
+        <mat-paginator [pageSizeOptions]="[10, 50, 100]" [pageSize]="10" [showFirstLastButtons]="true" aria-label="בחירת עמוד">
+        </mat-paginator>
     </mat-card>
 </section>

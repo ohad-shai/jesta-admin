@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
@@ -12,16 +13,20 @@ export class ManagerListComponent implements OnInit {
 
   managers!: Array<ManagerModel>;
   tableColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  tableDataSource = new MatTableDataSource(this.managers);
+  tableDataSource = new MatTableDataSource<ManagerModel>();
+  tableLoading: boolean = true;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private titleService: Title) {
   }
 
   ngOnInit(): void {
     this.titleService.setTitle('ג\'סטה | ניהול | מנהלים');
-    this.tableDataSource.sort = this.sort;
+
+    // On sort change: resets back to the first page:
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     // TODO: get from API:
     this.managers = [
@@ -35,7 +40,11 @@ export class ManagerListComponent implements OnInit {
       { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
       { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
       { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+      { position: 11, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
     ];
+    this.tableDataSource = new MatTableDataSource(this.managers);
+    this.tableDataSource.sort = this.sort;
+    this.tableDataSource.paginator = this.paginator;
   }
 
 }
