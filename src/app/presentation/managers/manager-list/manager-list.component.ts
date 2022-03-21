@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ManagerModel } from 'src/app/domain/models/manager.model';
@@ -16,17 +14,11 @@ export class ManagerListComponent implements OnInit {
   tableDataSource = new MatTableDataSource<ManagerModel>();
   tableLoading: boolean = false;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   constructor(private titleService: Title) {
   }
 
   ngOnInit(): void {
     this.titleService.setTitle('ג\'סטה | ניהול | מנהלים');
-
-    // On sort change: resets back to the first page:
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     // TODO: get from API:
     this.managers = [
@@ -43,8 +35,6 @@ export class ManagerListComponent implements OnInit {
       { id: 11, name: 'שם 10' },
     ];
     this.tableDataSource = new MatTableDataSource(this.managers);
-    this.tableDataSource.sort = this.sort;
-    this.tableDataSource.paginator = this.paginator;
   }
 
 }

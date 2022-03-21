@@ -14,12 +14,12 @@
             <table mat-table recycleRows [dataSource]="tableDataSource" matSort matSortDirection="desc">
                 <!-- Id Column -->
                 <ng-container matColumnDef="id" class="mat-column-id">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-id">#</mat-header-cell>
+                    <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element" class="mat-column-id"> {{element.id}} </mat-cell>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>שם מלא</mat-header-cell>
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                 </ng-container>
                 <!-- Actions Column -->
@@ -58,7 +58,5 @@
                 <mat-progress-bar class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
             </div>
         </div>
-        <mat-paginator [pageSizeOptions]="[10, 50, 100]" [pageSize]="10" [showFirstLastButtons]="true" aria-label="בחירת עמוד">
-        </mat-paginator>
     </mat-card>
 </section>
