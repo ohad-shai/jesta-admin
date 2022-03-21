@@ -1,34 +1,50 @@
 <section class="container">
-    <header class="mb-3">
-        <h1 class="title-1">מנהלים</h1>
+    <header class="section-header">
+        <h1 class="title">מנהלים</h1>
+        <div class="actions">
+            <button mat-raised-button type="button" class="btn-outline-primary">
+                <mat-icon>add</mat-icon>
+                <span *ifScreenAbove="'xs'" class="mr-1">הוספה</span>
+            </button>
+        </div>
     </header>
 
     <mat-card class="mat-elevation-z4">
         <div class="table-wrapper mb-2">
             <table mat-table recycleRows [dataSource]="tableDataSource" matSort matSortDirection="desc">
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                <!-- Id Column -->
+                <ng-container matColumnDef="id" class="mat-column-id">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-id">#</mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element" class="mat-column-id"> {{element.id}} </mat-cell>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>שם מלא</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                 </ng-container>
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions" class="mat-column-actions">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">
+                        <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
+                            <button mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                            <button mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                            <button mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                        </div>
+                        <div *ifScreenBelow="'md'">
+                            <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item type="button">עריכה</button>
+                                <button mat-menu-item type="button">מחיקה</button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
                 </ng-container>
 
-                <mat-header-row *matHeaderRowDef="tableColumns" class="cursor-pointer"></mat-header-row>
-                <mat-row matRipple *matRowDef="let row; columns: tableColumns;" class="cursor-pointer"></mat-row>
+                <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: tableColumns;"></mat-row>
 
                 <!-- If no data: -->
                 <tr class="mat-row" *matNoDataRow>

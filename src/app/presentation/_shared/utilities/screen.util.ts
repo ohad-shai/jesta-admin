@@ -23,7 +23,7 @@ export class ScreenUtil {
      * @returns Returns true if the current screen width is lower than XS, otherwise false.
      */
     public isLowerThanXS(): boolean {
-        return (this.getCurrentWidth() <= this.SCREEN_XS);
+        return (this.getCurrentWidth() < this.SCREEN_XS);
     }
 
     /**
@@ -31,7 +31,7 @@ export class ScreenUtil {
     * @returns Returns true if the current screen width is lower than SM, otherwise false.
     */
     public isLowerThanSM(): boolean {
-        return (this.getCurrentWidth() <= this.SCREEN_SM);
+        return (this.getCurrentWidth() < this.SCREEN_SM);
     }
 
     /**
@@ -39,7 +39,7 @@ export class ScreenUtil {
     * @returns Returns true if the current screen width is lower than MD, otherwise false.
     */
     public isLowerThanMD(): boolean {
-        return (this.getCurrentWidth() <= this.SCREEN_MD);
+        return (this.getCurrentWidth() < this.SCREEN_MD);
     }
 
     /**
@@ -47,7 +47,7 @@ export class ScreenUtil {
     * @returns Returns true if the current screen width is lower than LG, otherwise false.
     */
     public isLowerThanLG(): boolean {
-        return (this.getCurrentWidth() <= this.SCREEN_LG);
+        return (this.getCurrentWidth() < this.SCREEN_LG);
     }
 
     /**

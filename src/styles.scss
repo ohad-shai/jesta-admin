@@ -108,6 +108,30 @@ td {
 
 /* #region  (2.2) - Background */
 
+.bg-success {
+    background: var(--color-success) !important;
+}
+
+.bg-info {
+    background: var(--color-info) !important;
+}
+
+.bg-warning {
+    background: var(--color-warning) !important;
+}
+
+.bg-danger {
+    background: var(--color-danger) !important;
+}
+
+.bg-secondary {
+    background: var(--color-secondary) !important;
+}
+
+.bg-accent {
+    background: var(--color-accent) !important;
+}
+
 .bg-light-gradient {
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eeeeee+0,ffffff+30,ffffff+70,eeeeee+100 */
     background: rgb(238, 238, 238); /* Old browsers */
@@ -183,12 +207,9 @@ td {
 /* #region  (4) - Typography */
 
 .title-1 {
-    font-size: 1.5rem !important;
+    font-size: 1.75rem !important;
     line-height: 1 !important;
-
-    @include break-above-xs() {
-        font-size: 1.75rem !important;
-    }
+    margin-bottom: 0 !important;
 
     @include break-above-lg() {
         font-size: 2rem !important;
@@ -197,7 +218,111 @@ td {
 
 /* #endregion */
 
-/* #region  Tables */
+/* #region  (5) - Buttons */
+
+.btn-outline-success {
+    color: var(--color-success) !important;
+    border: 1px solid var(--color-success) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-success) !important;
+    }
+}
+
+.btn-outline-info {
+    color: var(--color-info) !important;
+    border: 1px solid var(--color-info) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-info) !important;
+    }
+}
+
+.btn-outline-warning {
+    color: #d39b02 !important;
+    border: 1px solid var(--color-warning) !important;
+
+    &:hover {
+        color: var(--color-black) !important;
+        background: var(--color-warning) !important;
+    }
+}
+
+.btn-outline-danger {
+    color: var(--color-danger) !important;
+    border: 1px solid var(--color-danger) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-danger) !important;
+    }
+}
+
+.btn-outline-secondary {
+    color: var(--color-secondary) !important;
+    border: 1px solid var(--color-secondary) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-secondary) !important;
+    }
+}
+
+.btn-outline-primary {
+    color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-primary) !important;
+    }
+}
+
+.btn-outline-accent {
+    color: var(--color-accent) !important;
+    border: 1px solid var(--color-accent) !important;
+
+    &:hover {
+        color: var(--color-white) !important;
+        background: var(--color-accent) !important;
+    }
+}
+
+/* #endregion */
+
+/* #region (6) - Layouting */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-3;
+
+    .title {
+        font-size: 1.75rem !important;
+        line-height: 1 !important;
+        margin-bottom: 0 !important;
+
+        @include break-above-lg() {
+            font-size: 2rem !important;
+        }
+    }
+
+    .actions > * {
+        font-size: 1rem !important;
+
+        @include break-above-lg() {
+            font-size: 1.25rem !important;
+            padding: 0.25rem 1.25rem !important;
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region (7) - Tables */
 
 .table-wrapper {
     position: relative;
@@ -258,9 +383,36 @@ td {
     }
 }
 
+.mat-header-row {
+    cursor: default;
+}
+
 .mat-row:hover,
 .mat-sort-header:hover {
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-column-id {
+    flex: initial !important;
+    min-width: 3rem;
+    padding: 0 1.5rem !important;
+
+    @include break-above-md() {
+        min-width: 6rem;
+    }
+}
+
+.mat-column-actions {
+    flex: initial !important;
+    min-width: 0;
+    justify-content: center;
+    padding: 0 0.5rem !important;
+
+    @include break-above-md() {
+        min-width: 18rem;
+        padding: 0 1.5rem !important;
+    }
 }
 
 .mat-no-data {

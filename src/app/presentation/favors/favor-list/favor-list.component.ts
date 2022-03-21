@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { ManagerModel } from 'src/app/domain/models/manager.model';
+import { TempModel } from 'src/app/domain/models/temp.model';
 
 @Component({
   selector: 'app-favor-list',
@@ -10,7 +10,7 @@ import { ManagerModel } from 'src/app/domain/models/manager.model';
 })
 export class FavorListComponent implements OnInit {
 
-  favors!: Array<ManagerModel>;
+  favors!: Array<TempModel>;
   tableColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   tableDataSource = new MatTableDataSource(this.favors);
 

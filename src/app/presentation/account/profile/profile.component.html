@@ -13,13 +13,11 @@
             <section class="p-1 xs-p-2">
                 <form [formGroup]="updateNameForm" (submit)="updateName()">
                     <h2 class="mb-3">עידכון שם מלא</h2>
-                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
+                    <div class="d-flex flex-col w-100 maxw-xxs">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>שם פרטי</mat-label>
                             <input formControlName="firstName" matInput type="text" autocomplete="given-name" />
-                            <button mat-icon-button type="button" *ngIf="updateNameForm.controls['firstName'].value"
-                                matSuffix aria-label="נקה" (click)="updateNameForm.controls['firstName'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="updateNameForm.controls['firstName'].value" matSuffix aria-label="נקה" (click)="updateNameForm.controls['firstName'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="updateNameForm.controls['firstName'].hasError('required')">
@@ -32,9 +30,7 @@
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>שם משפחה</mat-label>
                             <input formControlName="lastName" matInput type="text" autocomplete="family-name" />
-                            <button mat-icon-button type="button" *ngIf="updateNameForm.controls['lastName'].value"
-                                matSuffix aria-label="נקה" (click)="updateNameForm.controls['lastName'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="updateNameForm.controls['lastName'].value" matSuffix aria-label="נקה" (click)="updateNameForm.controls['lastName'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="updateNameForm.controls['lastName'].hasError('required')">
@@ -45,8 +41,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5"
-                        [disabled]="updateNameForm.invalid || updateNameFormLoading || (updateNameSettingValue == (updateNameForm.controls['firstName'].value + ' ' + updateNameForm.controls['lastName'].value))">שמירה</button>
+                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5" [disabled]="updateNameForm.invalid || updateNameFormLoading || (updateNameSettingValue == (updateNameForm.controls['firstName'].value + ' ' + updateNameForm.controls['lastName'].value))">שמירה</button>
                     <mat-progress-bar class="overlay-bottom" *ngIf="updateNameFormLoading" mode="indeterminate">
                     </mat-progress-bar>
                 </form>
@@ -62,13 +57,11 @@
             <section class="p-1 xs-p-2">
                 <form [formGroup]="updateEmailForm" (submit)="updateEmail()">
                     <h2 class="mb-3">עידכון כתובת דוא"ל</h2>
-                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
+                    <div class="d-flex flex-col w-100 maxw-xxs">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>דוא"ל</mat-label>
                             <input formControlName="email" matInput type="email" autocomplete="email" />
-                            <button mat-icon-button type="button" *ngIf="updateEmailForm.controls['email'].value"
-                                matSuffix aria-label="נקה" (click)="updateEmailForm.controls['email'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="updateEmailForm.controls['email'].value" matSuffix aria-label="נקה" (click)="updateEmailForm.controls['email'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="updateEmailForm.controls['email'].hasError('required')">
@@ -84,9 +77,7 @@
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה לצורך אבטחה</mat-label>
                             <input formControlName="password" matInput type="password" autocomplete="off" />
-                            <button mat-icon-button type="button" *ngIf="updateEmailForm.controls['password'].value"
-                                matSuffix aria-label="נקה" (click)="updateEmailForm.controls['password'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="updateEmailForm.controls['password'].value" matSuffix aria-label="נקה" (click)="updateEmailForm.controls['password'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="updateEmailForm.controls['password'].hasError('required')">
@@ -100,8 +91,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5"
-                        [disabled]="updateEmailForm.invalid || updateEmailFormLoading || (updateEmailSettingValue == updateEmailForm.controls['email'].value)">שמירה</button>
+                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5" [disabled]="updateEmailForm.invalid || updateEmailFormLoading || (updateEmailSettingValue == updateEmailForm.controls['email'].value)">שמירה</button>
                     <mat-progress-bar class="overlay-bottom" *ngIf="updateEmailFormLoading" mode="indeterminate">
                     </mat-progress-bar>
                 </form>
@@ -116,13 +106,11 @@
             <section class="p-1 xs-p-2">
                 <form [formGroup]="changePasswordForm" (submit)="changePassword()">
                     <h2 class="mb-3">שינוי סיסמה</h2>
-                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
+                    <div class="d-flex flex-col w-100 maxw-xxs">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה נוכחית</mat-label>
                             <input formControlName="currentPassword" matInput type="password" autocomplete="off" />
-                            <button mat-icon-button type="button"
-                                *ngIf="changePasswordForm.controls['currentPassword'].value" matSuffix aria-label="נקה"
-                                (click)="changePasswordForm.controls['currentPassword'].reset()" tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="changePasswordForm.controls['currentPassword'].value" matSuffix aria-label="נקה" (click)="changePasswordForm.controls['currentPassword'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="changePasswordForm.controls['currentPassword'].hasError('required')">
@@ -138,9 +126,7 @@
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה חדשה</mat-label>
                             <input formControlName="newPassword" matInput type="password" autocomplete="off" />
-                            <button mat-icon-button type="button"
-                                *ngIf="changePasswordForm.controls['newPassword'].value" matSuffix aria-label="נקה"
-                                (click)="changePasswordForm.controls['newPassword'].reset()" tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="changePasswordForm.controls['newPassword'].value" matSuffix aria-label="נקה" (click)="changePasswordForm.controls['newPassword'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('required')">
@@ -159,10 +145,7 @@
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה חדשה שוב</mat-label>
                             <input formControlName="newPasswordConfirm" matInput type="password" autocomplete="off" />
-                            <button mat-icon-button type="button"
-                                *ngIf="changePasswordForm.controls['newPasswordConfirm'].value" matSuffix
-                                aria-label="נקה" (click)="changePasswordForm.controls['newPasswordConfirm'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="changePasswordForm.controls['newPasswordConfirm'].value" matSuffix aria-label="נקה" (click)="changePasswordForm.controls['newPasswordConfirm'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('required')">
@@ -179,8 +162,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5"
-                        [disabled]="changePasswordForm.invalid || changePasswordFormLoading">עידכון</button>
+                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5" [disabled]="changePasswordForm.invalid || changePasswordFormLoading">עידכון</button>
                     <mat-progress-bar class="overlay-bottom" *ngIf="changePasswordFormLoading" mode="indeterminate">
                     </mat-progress-bar>
                 </form>
@@ -197,13 +179,11 @@
                     <h2 class="mb-3">מחיקת חשבון</h2>
                     <p class="txt-danger mb-3">אזהרה: פעולה זאת תמחק את החשבון לצמיתות ולא יהיה ניתן לשחזר מידע זה
                         בעתיד!</p>
-                    <div class="d-flex flex-col gap-0 w-100 maxw-xxs lg-flex-row lg-gap-3">
+                    <div class="d-flex flex-col w-100 maxw-xxs">
                         <mat-form-field class="minw-100" appearance="outline">
                             <mat-label>סיסמה לצורך אבטחה</mat-label>
                             <input formControlName="password" matInput type="password" autocomplete="off" />
-                            <button mat-icon-button type="button" *ngIf="deleteAccountForm.controls['password'].value"
-                                matSuffix aria-label="נקה" (click)="deleteAccountForm.controls['password'].reset()"
-                                tabindex="-1">
+                            <button mat-icon-button type="button" *ngIf="deleteAccountForm.controls['password'].value" matSuffix aria-label="נקה" (click)="deleteAccountForm.controls['password'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
                             </button>
                             <mat-error *ngIf="deleteAccountForm.controls['password'].hasError('required')">
@@ -217,8 +197,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5"
-                        [disabled]="deleteAccountForm.invalid || deleteAccountFormLoading">מחיקה</button>
+                    <button type="submit" mat-raised-button color="primary" class=" py-1 px-5" [disabled]="deleteAccountForm.invalid || deleteAccountFormLoading">מחיקה</button>
                     <mat-progress-bar class="overlay-bottom" *ngIf="deleteAccountFormLoading" mode="indeterminate">
                     </mat-progress-bar>
                 </form>
