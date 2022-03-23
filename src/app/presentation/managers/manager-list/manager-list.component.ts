@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { ManagerModel } from 'src/app/domain/models/manager.model';
+import { ManagerModel } from 'src/app/data/models/manager.model';
 
 @Component({
   selector: 'app-manager-list',

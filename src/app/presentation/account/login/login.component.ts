@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
 
-import { NotificationService } from 'src/app/core/services/notification.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -15,11 +16,12 @@ export class LoginComponent implements OnInit {
     formLoading!: boolean;
     form!: FormGroup;
 
-    constructor(private router: Router,
+    constructor(
+        private router: Router,
         private titleService: Title,
-        private notificationService: NotificationService,
-        private authService: AuthService) {
-    }
+        private snackBar: SnackBarUtil,
+        private authService: AuthService
+    ) { }
 
     ngOnInit() {
         this.titleService.setTitle('ג\'סטה | ניהול | התחברות');
@@ -32,28 +34,27 @@ export class LoginComponent implements OnInit {
     }
 
     performLogin() {
-        if (this.form.invalid || this.formLoading) return; // TODO notification
+        if (this.form.invalid || this.formLoading) return;
 
-        const email = this.form.controls['email'].value;
+        this.formLoading = true;
+
+        const email = this.form.controls['email'].value.toLowerCase();
         const password = this.form.controls['password'].value;
         const rememberMe = this.form.controls['rememberMe'].value;
 
-        this.formLoading = true;
-        // this.authService.login(email.toLowerCase(), password)
-        //     .subscribe(
-        //         data => {
-        //             if (rememberMe) {
-        //                 localStorage.setItem('savedUserEmail', email);
-        //             } else {
-        //                 localStorage.removeItem('savedUserEmail');
-        //             }
-        //             this.router.navigate(['/dashboard']);
-        //         },
-        //         error => {
-        //             this.notificationService.openSnackBar(error.error);
-        //             this.loading = false;
-        //         }
-        //     );
+        this.authService.login(email, password, rememberMe).subscribe(
+            success => {
+                this.router.navigate(['/']);
+            },
+            (error: HttpErrorResponse) => {
+                if (error.message == "user is not exist" || error.message == "password is wrong") {
+                    this.snackBar.show("דוא\"ל או סיסמה לא נכונים");
+                } else {
+                    this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+                }
+                this.formLoading = false;
+            }
+        );
     }
 
 }

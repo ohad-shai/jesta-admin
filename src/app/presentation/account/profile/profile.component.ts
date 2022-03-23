@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { NotificationService } from 'src/app/core/services/notification.service';
 import { ValidationBundles } from '../../_shared/validators/validation-bundles';
 import { equals } from '../../_shared/validators/equals.validator';
 import { notEquals } from '../../_shared/validators/not-equals.validator';
@@ -23,8 +22,7 @@ export class ProfileComponent implements OnInit {
   deleteAccountForm!: FormGroup;
 
   constructor(
-    private titleService: Title,
-    private notificationService: NotificationService
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +52,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateName() {
-    if (this.updateNameForm.invalid || this.updateNameFormLoading) return; // TODO notification
+    if (this.updateNameForm.invalid || this.updateNameFormLoading) return;
 
     const firstName = this.updateNameForm.controls['firstName'].value;
     const lastName = this.updateNameForm.controls['lastName'].value;
@@ -64,7 +62,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateEmail() {
-    if (this.updateEmailForm.invalid || this.updateEmailFormLoading) return; // TODO notification
+    if (this.updateEmailForm.invalid || this.updateEmailFormLoading) return;
 
     const email = this.updateEmailForm.controls['email'].value;
     const password = this.updateEmailForm.controls['password'].value;
@@ -74,7 +72,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword() {
-    if (this.changePasswordForm.invalid || this.changePasswordFormLoading) return; // TODO notification
+    if (this.changePasswordForm.invalid || this.changePasswordFormLoading) return;
 
     const currentPassword = this.changePasswordForm.controls['currentPassword'].value;
     const newPassword = this.changePasswordForm.controls['newPassword'].value;
@@ -84,7 +82,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount() {
-    if (this.deleteAccountForm.invalid || this.deleteAccountFormLoading) return; // TODO notification
+    if (this.deleteAccountForm.invalid || this.deleteAccountFormLoading) return;
 
     const password = this.deleteAccountForm.controls['password'].value;
 

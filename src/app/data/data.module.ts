@@ -3,20 +3,19 @@ import { CommonModule } from '@angular/common';
 import { throwIfAlreadyLoaded } from '../core/guards/module-import.guard';
 import { HttpClientModule } from '@angular/common/http';
 
+import { GraphQLModule } from './graphql/graphql.module';
+
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule
   ],
-  declarations: [
-
-  ],
-  exports: [
-
-  ]
+  declarations: [],
+  exports: [],
 })
-export class DomainModule {
-  constructor(@Optional() @SkipSelf() parentModule: DomainModule) {
-    throwIfAlreadyLoaded(parentModule, 'DomainModule');
+export class DataModule {
+  constructor(@Optional() @SkipSelf() parentModule: DataModule) {
+    throwIfAlreadyLoaded(parentModule, 'DataModule');
   }
 }

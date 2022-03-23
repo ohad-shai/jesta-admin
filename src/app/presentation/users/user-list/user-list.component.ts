@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { TempModel } from 'src/app/domain/models/temp.model';
+import { TempModel } from 'src/app/data/models/temp.model';
 
 @Component({
   selector: 'app-user-list',

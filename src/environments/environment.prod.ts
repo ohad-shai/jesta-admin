@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: ''
+  GRAPHQL_API_PATH: 'http://localhost:4111/graphql'
 };
