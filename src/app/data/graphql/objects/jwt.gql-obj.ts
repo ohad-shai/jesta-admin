@@ -1,4 +1,4 @@
-export interface Jwt {
+export interface JwtGQLObject {
     userId: string;
     token: string;
 }

@@ -42,11 +42,11 @@ export class LoginComponent implements OnInit {
         const password = this.form.controls['password'].value;
         const rememberMe = this.form.controls['rememberMe'].value;
 
-        this.authService.login(email, password, rememberMe).subscribe(
-            success => {
+        this.authService.login(email, password, rememberMe).subscribe({
+            next: () => {
                 this.router.navigate(['/']);
             },
-            (error: HttpErrorResponse) => {
+            error: (error: HttpErrorResponse) => {
                 if (error.message == "user is not exist" || error.message == "password is wrong") {
                     this.snackBar.show("דוא\"ל או סיסמה לא נכונים");
                 } else {
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
                 }
                 this.formLoading = false;
             }
-        );
+        });
     }
 
 }

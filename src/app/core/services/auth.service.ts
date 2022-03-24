@@ -1,37 +1,132 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { UserIdentity } from 'src/app/core/objects/user-identity';
 import { ConnectUserGQL } from 'src/app/data/graphql/mutations/connect-user.gql';
+import { UsersService } from './users.service';
+import { AuthData } from '../objects/auth-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  static readonly AUTH_STORAGE_KEY: string = "auth";
+
+  private currentUserSubject = new BehaviorSubject<UserIdentity | null>(null);
+
   constructor(
-    private connectUser: ConnectUserGQL
+    private connectUser: ConnectUserGQL,
+    private usersService: UsersService,
   ) { }
 
-  login(email: string, password: string, remember: boolean) {
-    let query = this.connectUser.mutate({
+  /* #region  Public API */
+
+  login(email: string, password: string, remember: boolean): Observable<AuthData> {
+    let observable = this.connectUser.mutate({
       email: email,
       password: password
-    });
-    query.subscribe(
-      result => {
-        // TODO:
-        console.log(result.data?.connectUser.token);
-        console.log(result.data?.connectUser.userId);
-      },
-      error => { }
+    }).pipe(
+      map(result => <AuthData>{
+        userId: result.data?.connectUser.userId,
+        token: result.data?.connectUser.token,
+      })
     );
-    return query;
+    observable.subscribe({
+      next: (result) => {
+        this.setCurrentUserAuthToStorage(result, remember);
+        this.initializeCurrentUser();
+      },
+      error: () => { }
+    });
+    return observable;
   }
 
-  isAuthenticated() {
-    return false;
+  logout() {
+    this.currentUserSubject.next(null);
+    this.removeCurrentUserAuthFromStorage();
   }
 
-  getCurrentUser() {
+  getCurrentUserValidJwtToken(): string | null {
+    let authData = this.getCurrentUserAuthFromStorage();
+    if (authData != null && this.isJwtTokenValid(authData.token)) {
+      return authData.token;
+    } else {
+      return null;
+    }
+  }
+
+  isAuthenticated(): boolean {
+    if (this.currentUserSubject.value != null) {
+      return true;
+    } else {
+      return (this.getCurrentUserValidJwtToken() != null);
+    }
+  }
+
+  getCurrentUser(): UserIdentity | null {
+    return this.currentUserSubject.value;
+  }
+
+  observeCurrentUser(): Observable<UserIdentity | null> {
+    return this.currentUserSubject.asObservable();
+  }
+
+  initializeCurrentUser(): void {
+    let authData = this.getCurrentUserAuthFromStorage();
+    if (authData != null) {
+      this.usersService.getUserById(authData.userId).pipe(
+        map(result => <UserIdentity>{
+          id: result._id,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          email: result.email,
+        })
+      ).subscribe(userIdentity => {
+        this.currentUserSubject.next(userIdentity);
+      });
+    }
+  }
+
+  /* #endregion */
+
+  /* #region  Private Methods */
+
+  private isJwtTokenValid(token: string): boolean {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    return (Math.floor((new Date).getTime() / 1000)) < expiry;
+  }
+
+  private setCurrentUserAuthToStorage(authData: AuthData, persist: boolean): void {
+    if (persist) {
+      localStorage.setItem(AuthService.AUTH_STORAGE_KEY, JSON.stringify({
+        token: authData.token,
+        uid: authData.userId,
+      }));
+    } else {
+      sessionStorage.setItem(AuthService.AUTH_STORAGE_KEY, JSON.stringify({
+        token: authData.token,
+        uid: authData.userId,
+      }));
+    }
+  }
+
+  private getCurrentUserAuthFromStorage(): AuthData | null {
+    let authData = localStorage.getItem(AuthService.AUTH_STORAGE_KEY);
+    if (authData != null) {
+      return <AuthData>JSON.parse(authData);
+    }
+    authData = sessionStorage.getItem(AuthService.AUTH_STORAGE_KEY);
+    if (authData != null) {
+      return <AuthData>JSON.parse(authData);
+    }
     return null;
   }
+
+  private removeCurrentUserAuthFromStorage(): void {
+    localStorage.removeItem(AuthService.AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AuthService.AUTH_STORAGE_KEY);
+  }
+
+  /* #endregion */
 
 }

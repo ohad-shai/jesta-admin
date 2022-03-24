@@ -9,7 +9,7 @@
 
     <button *ifScreenAbove="'xs'" mat-button type="button" [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-        <span class="mr-1">ישראל</span>
+        <span class="mr-1">{{currentUserFirstName}}</span>
     </button>
     <button *ifScreenBelow="'xs'" mat-icon-button type="button" [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
@@ -19,7 +19,7 @@
             <mat-icon>person</mat-icon>
             <span>הגדרות חשבון</span>
         </a>
-        <a mat-menu-item [routerLink]="['/account/login']">
+        <a mat-menu-item (click)="logout()">
             <mat-icon>logout</mat-icon>
             <span>התנתקות</span>
         </a>
@@ -28,8 +28,7 @@
 </mat-toolbar>
 <mat-sidenav-container>
     <!-- Sidenav -->
-    <mat-sidenav #sidenav [mode]="screenUtil.isLowerThanSM() ? 'over' : 'side'" [(opened)]="isSidenavOpened"
-        [fixedInViewport]="true" [fixedTopGap]>
+    <mat-sidenav #sidenav [mode]="screenUtil.isLowerThanSM() ? 'over' : 'side'" [(opened)]="isSidenavOpened" [fixedInViewport]="true" [fixedTopGap]>
         <mat-nav-list class="pb-2">
             <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active" class="mat-list-item-lg">
                 <mat-icon class="ml-2">dashboard</mat-icon> תקציר

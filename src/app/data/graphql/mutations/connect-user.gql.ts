@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Mutation, gql } from 'apollo-angular';
-import { Jwt } from '../objects/jwt';
+import { gql, Mutation } from 'apollo-angular';
+import { JwtGQLObject } from '../objects/jwt.gql-obj';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,5 @@ export class ConnectUserGQL extends Mutation<Response> {
 }
 
 export interface Response {
-  connectUser: Jwt;
+  connectUser: JwtGQLObject;
 }
