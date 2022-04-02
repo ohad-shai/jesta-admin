@@ -9,25 +9,31 @@ import { LayoutComponent } from './layout/layout.component';
 import { IfScreenDirective } from './directives/if-screen.directive';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorHebrew } from './components/mat-paginator-hebrew';
+import { BasicListPageComponent } from './components/basic-list-page/basic-list-page.component';
+import { BasicItemPageComponent } from './components/basic-item-page/basic-item-page.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    IfScreenDirective
+    IfScreenDirective,
+    BasicListPageComponent,
+    BasicItemPageComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
     LayoutComponent,
-    IfScreenDirective
+    IfScreenDirective,
+    BasicListPageComponent,
+    BasicItemPageComponent,
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorHebrew }

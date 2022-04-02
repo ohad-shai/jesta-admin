@@ -1,0 +1,36 @@
+<section class="container">
+    <header>
+        <ul class="breadcrumb mb-3">
+            <li><a class="primary-link" [routerLink]="['/']"><u>בית</u></a></li>
+            <li><a class="primary-link" [routerLink]="[this.listRoute]"><u>{{ listName }}</u></a></li>
+            <li *ngIf="this.isCreateMode()">חדש</li>
+            <li *ngIf="this.isReadMode()">{{ itemName }}</li>
+            <li *ngIf="this.isUpdateMode() || this.isDeleteMode()"><a class="primary-link" [routerLink]="[this.listRoute + this.itemRoute!]"><u>{{ itemName }}</u></a></li>
+            <li *ngIf="this.isUpdateMode()">עריכה</li>
+            <li *ngIf="this.isDeleteMode()">מחיקה</li>
+        </ul>
+        <div class="section-header">
+            <h1 class="title">{{ title }}</h1>
+            <ng-container *ngIf="this.isNotCreateMode()">
+                <div *ifScreenAbove="'md'" class="actions gap-2">
+                    <button [routerLink]="[this.listRoute + this.itemRoute!]" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                    <button [routerLink]="[this.listRoute + this.itemRoute! + '/edit']" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                    <button [routerLink]="[this.listRoute + this.itemRoute! + '/delete']" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                </div>
+                <div *ifScreenBelow="'md'">
+                    <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button [routerLink]="[this.listRoute + this.itemRoute!]" mat-menu-item type="button">פרטים</button>
+                        <button [routerLink]="[this.listRoute + this.itemRoute! + '/edit']" mat-menu-item type="button">עריכה</button>
+                        <button [routerLink]="[this.listRoute + this.itemRoute! + '/delete']" mat-menu-item type="button">מחיקה</button>
+                    </mat-menu>
+                </div>
+            </ng-container>
+
+        </div>
+    </header>
+
+    <ng-content></ng-content>
+</section>

@@ -4,10 +4,12 @@ import { throwIfAlreadyLoaded } from 'src/app/core/guards/module-import.guard';
 import { SharedModule } from '../_shared/shared.module';
 import { ManagersRoutingModule } from './managers-routing.module';
 import { ManagerListComponent } from './manager-list/manager-list.component';
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
     declarations: [
-        ManagerListComponent
+        ManagerListComponent,
+        ManagerComponent
     ],
     imports: [
         CommonModule,

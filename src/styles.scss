@@ -206,6 +206,15 @@ td {
 
 /* #region  (4) - Typography */
 
+.primary-link {
+    color: var(--color-text) !important;
+    transition: color 0.15s ease-out;
+}
+
+.primary-link:hover {
+    color: var(--color-accent) !important;
+}
+
 .title-1 {
     font-size: 1.75rem !important;
     line-height: 1 !important;
@@ -310,6 +319,12 @@ td {
         }
     }
 
+    .actions {
+        display: flex;
+        flex-direction: row;
+        margin-top: -1rem;
+    }
+
     .actions > * {
         font-size: 1rem !important;
 
@@ -322,13 +337,13 @@ td {
 
 /* #endregion */
 
-/* #region (7) - Tables */
+/* #region (7) - Special Components */
 
 .table-wrapper {
     position: relative;
 }
 
-.table-wrapper .table-loading {
+.loading-blocker {
     position: absolute;
     top: 0;
     left: 0;
@@ -339,6 +354,72 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.breadcrumb > li + li {
+    padding-right: 0.5rem;
+}
+
+.breadcrumb > li + li::before {
+    display: inline-block;
+    content: "—";
+    color: #868e96;
+    padding-left: 0.5rem;
+}
+
+.sbs-forms {
+    display: flex;
+    flex-direction: column;
+    padding: $space-2;
+
+    @include break-above-xs() {
+        padding: $space-3;
+    }
+    @include break-above-lg() {
+        flex-direction: row;
+    }
+
+    .sbs-form-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sbs-form-icon > * {
+        display: none !important;
+        height: 26rem !important;
+        width: 26rem !important;
+        font-size: 25rem !important;
+        text-align: center;
+        color: #f0f0f0;
+        pointer-events: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        @include break-above-lg() {
+            display: block !important;
+        }
+    }
+}
+
+.sbs-forms > * {
+    flex: 1;
+    width: 100%;
+
+    @include break-above-lg() {
+        width: 50%;
+    }
 }
 
 /* #endregion */

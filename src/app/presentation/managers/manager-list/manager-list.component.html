@@ -1,50 +1,40 @@
-<section class="container">
-    <header class="section-header">
-        <h1 class="title">מנהלים</h1>
-        <div class="actions">
-            <button mat-raised-button type="button" class="btn-outline-primary">
-                <mat-icon>add</mat-icon>
-                <span *ifScreenAbove="'xs'" class="mr-1">הוספה</span>
-            </button>
-        </div>
-    </header>
-
+<app-basic-list-page forRoute="/managers" title="מנהלים">
     <mat-card class="mat-elevation-z4">
         <div class="table-wrapper mb-2">
-            <table mat-table recycleRows [dataSource]="tableDataSource" matSort matSortDirection="desc">
+            <table mat-table recycleRows [dataSource]="tableDataSource">
                 <!-- Id Column -->
                 <ng-container matColumnDef="id" class="mat-column-id">
                     <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element" class="mat-column-id"> {{element.id}} </mat-cell>
+                    <mat-cell mat-cell *matCellDef="let element" class="mat-column-id">{{ element.id }}</mat-cell>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    <mat-cell mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
                 </ng-container>
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions" class="mat-column-actions">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element">
                         <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
-                            <button mat-raised-button type="button" class="btn-outline-info">פרטים</button>
-                            <button mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
-                            <button mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                            <button [routerLink]="['/managers/' + element.id]" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                            <button [routerLink]="['/managers/' + element.id + '/edit']" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                            <button [routerLink]="['/managers/' + element.id + '/delete']" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
                         </div>
                         <div *ifScreenBelow="'md'">
                             <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item type="button">עריכה</button>
-                                <button mat-menu-item type="button">מחיקה</button>
+                                <button [routerLink]="['/managers/' + element.id + '/edit']" mat-menu-item type="button">עריכה</button>
+                                <button [routerLink]="['/managers/' + element.id + '/delete']" mat-menu-item type="button">מחיקה</button>
                             </mat-menu>
                         </div>
                     </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                <mat-row matRipple *matRowDef="let row; columns: tableColumns;"></mat-row>
+                <mat-row [routerLink]="['/managers/' + row.id]" matRipple *matRowDef="let row; columns: tableColumns;"></mat-row>
 
                 <!-- If no data: -->
                 <tr class="mat-row" *matNoDataRow>
@@ -52,11 +42,11 @@
                 </tr>
             </table>
             <!-- If loading: -->
-            <div class="table-loading" *ngIf="tableLoading">
+            <div class="loading-blocker" *ngIf="tableLoading">
                 <mat-progress-bar class="overlay-top" mode="query"></mat-progress-bar>
                 <mat-spinner *ngIf="(managers.length > 2)"></mat-spinner>
                 <mat-progress-bar class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
             </div>
         </div>
     </mat-card>
-</section>
+</app-basic-list-page>

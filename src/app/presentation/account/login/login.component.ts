@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
     formLoading!: boolean;
     form!: FormGroup;
 
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private titleService: Title,
         private snackBar: SnackBarUtil,
-        private authService: AuthService
+        private authService: AuthService,
     ) { }
 
     ngOnInit() {

@@ -14,8 +14,9 @@ export class ManagerListComponent implements OnInit {
   tableDataSource = new MatTableDataSource<ManagerModel>();
   tableLoading: boolean = false;
 
-  constructor(private titleService: Title) {
-  }
+  constructor(
+    private titleService: Title
+  ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('ג\'סטה | ניהול | מנהלים');
