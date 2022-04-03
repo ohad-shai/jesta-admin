@@ -1,8 +1,8 @@
-import { AddressGQLObject } from "./address.gql-obj";
+import { AddressObjectGQL } from "./address.object.gql";
 
-export interface UserGQLObject {
+export interface UserObjectGQL {
     _id: string;
-    address: AddressGQLObject;
+    address: AddressObjectGQL;
     birthday: Date;
     created_date: string;
     dateEmailVerified: string;

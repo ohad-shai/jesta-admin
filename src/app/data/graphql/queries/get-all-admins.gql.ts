@@ -5,10 +5,10 @@ import { UserObjectGQL } from '../objects/user.object.gql';
 @Injectable({
   providedIn: 'root'
 })
-export class GetUserGQL extends Query<Response> {
+export class GetAllAdminsGQL extends Query<Response> {
   override document = gql`
-        query GetUser($id: String) {
-          getUser(_id: $id) {
+        query GetAllAdmins() {
+          getAllAdmins() {
             _id
             firstName
             lastName
@@ -32,5 +32,5 @@ export class GetUserGQL extends Query<Response> {
 }
 
 export interface Response {
-  getUser: UserObjectGQL;
+  getAllAdmins: Array<UserObjectGQL>;
 }

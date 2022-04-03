@@ -225,6 +225,16 @@ td {
     }
 }
 
+.tag {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.tag-danger {
+    color: var(--color-danger);
+    background-color: var(--color-danger-bg);
+}
+
 /* #endregion */
 
 /* #region  (5) - Buttons */
@@ -422,6 +432,25 @@ td {
     }
 }
 
+.sbs-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    @include break-above-xs() {
+        flex-direction: row;
+        gap: $space-4;
+    }
+}
+
+.sbs-fields > * {
+    width: 100%;
+
+    @include break-above-xs() {
+        width: 50%;
+    }
+}
+
 /* #endregion */
 
 /* #region  Material Override */
@@ -499,6 +528,22 @@ td {
 .mat-no-data {
     text-align: center;
     padding: $space-5 !important;
+}
+
+.mat-flat-button.mat-warn,
+.mat-raised-button.mat-warn,
+.mat-fab.mat-warn,
+.mat-mini-fab.mat-warn {
+    background-color: var(--color-danger);
+}
+
+.mat-form-field[readonly="true"] {
+    pointer-events: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* #endregion */

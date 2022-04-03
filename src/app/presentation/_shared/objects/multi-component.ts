@@ -10,6 +10,10 @@ export abstract class MultiComponent {
 
     @Input() mode: ComponentMode = ComponentMode.Create;
 
+    public isEditableMode() {
+        return (this.isCreateMode() || this.isUpdateMode());
+    }
+
     public isCreateMode() {
         return (this.mode === ComponentMode.Create);
     }

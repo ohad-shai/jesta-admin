@@ -5,17 +5,15 @@ import { JwtObjectGQL } from '../objects/jwt.object.gql';
 @Injectable({
   providedIn: 'root'
 })
-export class ConnectUserGQL extends Mutation<Response> {
+export class SignUpUserGQL extends Mutation<Response> {
   override document = gql`
-        mutation ConnectUser($email: String!, $password: String!) {
-          connectUser(email: $email, password: $password) {
-            userId
-            token
+        mutation SignUpUser($userParams: UserCreateInput, $file: Upload) {
+          signUpUser(userParams: $userParams, file: $file) {
           }
         }
     `;
 }
 
 export interface Response {
-  connectUser: JwtObjectGQL;
+  signUpUser: JwtObjectGQL;
 }

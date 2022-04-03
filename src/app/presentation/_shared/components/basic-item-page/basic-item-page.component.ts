@@ -29,10 +29,8 @@ export class BasicItemPageComponent extends MultiComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.mode = <ComponentMode>data["mode"];
-      if (this.mode == undefined) {
-        throw new Error("The route does not include the \"mode\" data property.");
-      }
-      this.initMode();
+      if (this.mode == undefined) throw new Error("The route does not include the \"mode\" data property.");
+      else this.initMode();
     });
   }
 
@@ -51,7 +49,7 @@ export class BasicItemPageComponent extends MultiComponent implements OnInit {
         this.title = (this.titleForDelete == undefined ? this.itemName : (this.titleForDelete + this.itemName))!;
         break;
       default:
-        throw new Error(`ComponentMode: ${this.mode} is undefined.`);
+        throw new Error(`ComponentMode: ${this.mode} is not defined.`);
     }
     this.titleService.setTitle('ג\'סטה | ניהול | ' + this.title);
   }
