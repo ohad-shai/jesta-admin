@@ -37,7 +37,7 @@ export class ManagerComponent extends MultiComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       // TODO: get from DB
-      this.manager = { id: params["id"], name: "שם מלא" };
+      this.manager = new ManagerModel("123", "שם", "מלא");
     });
   }
 

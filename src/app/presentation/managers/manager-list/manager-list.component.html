@@ -5,12 +5,12 @@
                 <!-- Id Column -->
                 <ng-container matColumnDef="id" class="mat-column-id">
                     <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element" class="mat-column-id">{{ element.id }}</mat-cell>
+                    <mat-cell mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+                    <mat-cell mat-cell *matCellDef="let element">{{ element.getFullName() }}</mat-cell>
                 </ng-container>
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions" class="mat-column-actions">
@@ -34,7 +34,7 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                <mat-row [routerLink]="['/managers/' + row.id]" matRipple *matRowDef="let row; columns: tableColumns;"></mat-row>
+                <mat-row [routerLink]="['/managers/' + row.id]" matRipple *matRowDef="let row; columns: tableColumns; let i = index"></mat-row>
 
                 <!-- If no data: -->
                 <tr class="mat-row" *matNoDataRow>

@@ -1,4 +1,4 @@
-<app-basic-item-page [itemName]="manager.name" [itemRoute]="'/' + manager.id" listName="מנהלים" listRoute="/managers" titleForCreate="מנהל חדש" titleForRead="פרטי מנהל: " titleForUpdate="עריכת מנהל: " titleForDelete="מחיקת מנהל: ">
+<app-basic-item-page [itemName]="manager.getFullName()" [itemRoute]="'/' + manager.id" listName="מנהלים" listRoute="/managers" titleForCreate="מנהל חדש" titleForRead="פרטי מנהל: " titleForUpdate="עריכת מנהל: " titleForDelete="מחיקת מנהל: ">
     <mat-card class="mat-elevation-z4">
         <div class="sbs-forms">
             <div>

@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
+import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
+import { UsersService } from 'src/app/core/services/users.service';
 import { ManagerModel } from 'src/app/data/models/manager.model';
 
 @Component({
@@ -15,27 +17,27 @@ export class ManagerListComponent implements OnInit {
   tableLoading: boolean = false;
 
   constructor(
-    private titleService: Title
+    private titleService: Title,
+    private snackBar: SnackBarUtil,
+    private usersService: UsersService,
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('ג\'סטה | ניהול | מנהלים');
 
-    // TODO: get from API:
-    this.managers = [
-      { id: 1, name: 'ישראל ישראלי' },
-      { id: 2, name: 'שם 1' },
-      { id: 3, name: 'שם 2' },
-      { id: 4, name: 'שם 3' },
-      { id: 5, name: 'שם 4' },
-      { id: 6, name: 'שם 5' },
-      { id: 7, name: 'שם 6' },
-      { id: 8, name: 'שם 7' },
-      { id: 9, name: 'שם 8' },
-      { id: 10, name: 'שם 9' },
-      { id: 11, name: 'שם 10' },
-    ];
-    this.tableDataSource = new MatTableDataSource(this.managers);
+    this.tableLoading = true;
+
+    this.usersService.getAdmins().subscribe({
+      next: (data) => {
+        this.managers = data;
+        this.tableDataSource = new MatTableDataSource(this.managers);
+        this.tableLoading = false;
+      },
+      error: (error) => {
+        this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+        this.tableLoading = false;
+      }
+    });
   }
 
 }
