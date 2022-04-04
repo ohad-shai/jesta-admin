@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
 import { MultiComponent } from '../../_shared/objects/multi-component';
-import { ManagerModel } from 'src/app/data/models/manager.model';
 import { ComponentMode } from '../../_shared/objects/component-mode';
 import { ValidationBundles } from '../../_shared/validators/validation-bundles';
 import { equals } from '../../_shared/validators/equals.validator';
+import { ManagerModel } from 'src/app/data/models/manager.model';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-manager',
@@ -13,12 +16,16 @@ import { equals } from '../../_shared/validators/equals.validator';
 })
 export class ManagerComponent extends MultiComponent implements OnInit {
 
-  loading: boolean = false;
-  manager!: ManagerModel;
+  initialLoading: boolean = false;
+  manager: ManagerModel = new ManagerModel();
   form!: FormGroup;
+  formLoading: boolean = false;
 
   constructor(
+    private titleService: Title,
     private route: ActivatedRoute,
+    private snackBar: SnackBarUtil,
+    private usersService: UsersService,
   ) { super(); }
 
   ngOnInit() {
@@ -33,18 +40,34 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.mode = <ComponentMode>data["mode"];
       if (this.mode == undefined) throw new Error("The route does not include the \"mode\" data property.");
-    });
 
-    this.route.params.subscribe(params => {
-      // TODO: get from DB
-      this.manager = new ManagerModel("123", "שם", "מלא");
+      if (!this.isCreateMode()) {
+        this.route.params.subscribe(params => {
+          // Gets the manager from the server:
+          this.initialLoading = true;
+          this.usersService.getUserById(params["id"]).subscribe({
+            next: (data) => {
+              this.manager = <ManagerModel>data;
+              this.form.controls["firstName"].setValue(this.manager.firstName);
+              this.form.controls["lastName"].setValue(this.manager.lastName);
+              this.form.controls["email"].setValue(this.manager.email);
+              this.titleService.setTitle('ג\'סטה | ניהול | ' + this.manager.getFullName());
+              this.initialLoading = false;
+            },
+            error: (error) => {
+              this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+              this.initialLoading = false;
+            }
+          });
+        });
+      }
     });
   }
 
   performCreate() {
-    if (this.form.invalid || this.loading) return;
+    if (this.form.invalid || this.formLoading) return;
 
-    this.loading = true;
+    this.formLoading = true;
 
     // const email = this.form.controls['email'].value.toLowerCase();
     // const password = this.form.controls['password'].value;
@@ -66,9 +89,9 @@ export class ManagerComponent extends MultiComponent implements OnInit {
   }
 
   performUpdate() {
-    if (this.form.invalid || this.loading) return;
+    if (this.form.invalid || this.formLoading) return;
 
-    this.loading = true;
+    this.formLoading = true;
 
     // const email = this.form.controls['email'].value.toLowerCase();
     // const password = this.form.controls['password'].value;
@@ -90,9 +113,9 @@ export class ManagerComponent extends MultiComponent implements OnInit {
   }
 
   performDelete() {
-    if (this.loading) return;
+    if (this.formLoading) return;
 
-    this.loading = true;
+    this.formLoading = true;
 
     // const email = this.form.controls['email'].value.toLowerCase();
     // const password = this.form.controls['password'].value;

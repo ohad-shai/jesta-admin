@@ -76,7 +76,7 @@ export class AuthService {
     if (authData != null) {
       this.usersService.getUserById(authData.userId).pipe(
         map(result => <UserIdentity>{
-          id: result._id,
+          id: result.id,
           firstName: result.firstName,
           lastName: result.lastName,
           email: result.email,

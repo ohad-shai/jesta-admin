@@ -3,7 +3,7 @@
         <div class="sbs-forms">
             <div>
                 <h3 *ngIf="this.isDeleteMode()" class="tag tag-danger">האם בטוח שברצונך למחוק זאת?</h3>
-                <form [formGroup]="form">
+                <form [formGroup]="form" (submit)="this.isCreateMode() ? performCreate() : this.isUpdateMode() ? performUpdate() : this.isDeleteMode() ? performDelete() : null">
                     <div class="sbs-fields">
                         <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
                             <mat-label>שם פרטי</mat-label>
@@ -88,15 +88,11 @@
                             <mat-icon class="ml-1">chevron_right</mat-icon>
                             <span>חזרה</span>
                         </button>
-                        <button *ngIf="this.isCreateMode()" (submit)="performCreate()" type="button" mat-raised-button color="primary" class="px-4 py-2" [disabled]="form.invalid || loading">
-                            <span>הוספה</span>
+                        <button *ngIf="this.isEditableMode()" type="submit" mat-raised-button color="primary" class="px-4 py-2" [disabled]="form.invalid || formLoading || initialLoading">
+                            <span>{{ this.isCreateMode() ? 'הוספה' : 'עריכה' }}</span>
                             <mat-icon class="mr-1">chevron_left</mat-icon>
                         </button>
-                        <button *ngIf="this.isUpdateMode()" (submit)="performUpdate()" type="button" mat-raised-button color="primary" class="px-4 py-2" [disabled]="form.invalid || loading">
-                            <span>עריכה</span>
-                            <mat-icon class="mr-1">chevron_left</mat-icon>
-                        </button>
-                        <button *ngIf="this.isDeleteMode()" (submit)="performDelete()" type="button" mat-raised-button color="warn" class="px-4 py-2" [disabled]="loading">
+                        <button *ngIf="this.isDeleteMode()" type="submit" mat-raised-button color="warn" class="px-4 py-2" [disabled]="formLoading || initialLoading">
                             <span>מחיקה</span>
                             <mat-icon class="mr-1">chevron_left</mat-icon>
                         </button>
@@ -108,10 +104,9 @@
             </div>
         </div>
         <!-- If loading: -->
-        <div class="loading-blocker" *ngIf="loading">
-            <mat-progress-bar class="overlay-top" mode="query"></mat-progress-bar>
-            <mat-spinner></mat-spinner>
-            <mat-progress-bar class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
+        <div class="loading-blocker" *ngIf="initialLoading || formLoading">
+            <div *ngIf="initialLoading" class="loading-sheen"></div>
+            <mat-progress-bar *ngIf="formLoading" class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
         </div>
     </mat-card>
 </app-basic-item-page>

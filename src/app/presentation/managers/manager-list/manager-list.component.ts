@@ -11,7 +11,7 @@ import { ManagerModel } from 'src/app/data/models/manager.model';
 })
 export class ManagerListComponent implements OnInit {
 
-  managers!: Array<ManagerModel>;
+  managers: Array<ManagerModel> = [];
   tableColumns: string[] = ['id', 'name', 'actions'];
   tableDataSource = new MatTableDataSource<ManagerModel>();
   tableLoading: boolean = false;
@@ -27,7 +27,7 @@ export class ManagerListComponent implements OnInit {
 
     this.tableLoading = true;
 
-    this.usersService.getAdmins().subscribe({
+    this.usersService.getManagers().subscribe({
       next: (data) => {
         this.managers = data;
         this.tableDataSource = new MatTableDataSource(this.managers);

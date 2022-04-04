@@ -5,48 +5,46 @@
                 <!-- Id Column -->
                 <ng-container matColumnDef="id" class="mat-column-id">
                     <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
+                    <mat-cell [routerLink]="['/managers/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element">{{ element.getFullName() }}</mat-cell>
+                    <mat-cell [routerLink]="['/managers/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element">{{ element.getFullName() }}</mat-cell>
                 </ng-container>
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions" class="mat-column-actions">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element">
                         <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
-                            <button [routerLink]="['/managers/' + element.id]" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
-                            <button [routerLink]="['/managers/' + element.id + '/edit']" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
-                            <button [routerLink]="['/managers/' + element.id + '/delete']" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                            <button [routerLink]="['/managers/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                            <button [routerLink]="['/managers/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                            <button [routerLink]="['/managers/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
                         </div>
                         <div *ifScreenBelow="'md'">
                             <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button [routerLink]="['/managers/' + element.id + '/edit']" mat-menu-item type="button">עריכה</button>
-                                <button [routerLink]="['/managers/' + element.id + '/delete']" mat-menu-item type="button">מחיקה</button>
+                                <button [routerLink]="['/managers/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">עריכה</button>
+                                <button [routerLink]="['/managers/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">מחיקה</button>
                             </mat-menu>
                         </div>
                     </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-                <mat-row [routerLink]="['/managers/' + row.id]" matRipple *matRowDef="let row; columns: tableColumns; let i = index"></mat-row>
+                <mat-row matRipple *matRowDef="let row; columns: tableColumns; let i = index"></mat-row>
 
                 <!-- If no data: -->
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell mat-no-data" colspan="4">אין נתונים</td>
                 </tr>
             </table>
-            <!-- If loading: -->
-            <div class="loading-blocker" *ngIf="tableLoading">
-                <mat-progress-bar class="overlay-top" mode="query"></mat-progress-bar>
-                <mat-spinner *ngIf="(managers.length > 2)"></mat-spinner>
-                <mat-progress-bar class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
-            </div>
+        </div>
+        <!-- If loading: -->
+        <div class="loading-blocker" *ngIf="tableLoading">
+            <div class="loading-sheen"></div>
         </div>
     </mat-card>
 </app-basic-list-page>

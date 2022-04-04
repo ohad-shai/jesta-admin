@@ -10,7 +10,12 @@
             <li *ngIf="this.isDeleteMode()">מחיקה</li>
         </ul>
         <div class="section-header">
-            <h1 class="title">{{ title }}</h1>
+            <h1 class="title">{{
+                this.isCreateMode() ? this.titleForCreate :
+                this.isReadMode() ? (this.titleForRead ? (this.itemName ? (this.titleForRead + this.itemName) : this.titleForRead) : this.itemName ? this.itemName : '') :
+                this.isUpdateMode() ? (this.titleForUpdate ? (this.itemName ? (this.titleForUpdate + this.itemName) : this.titleForUpdate) : this.itemName ? this.itemName : '') :
+                this.isDeleteMode() ? (this.titleForDelete ? (this.itemName ? (this.titleForDelete + this.itemName) : this.titleForDelete) : this.itemName ? this.itemName : '') : ''
+                }}</h1>
             <ng-container *ngIf="this.isNotCreateMode()">
                 <div *ifScreenAbove="'md'" class="actions gap-2">
                     <button [routerLink]="[this.listRoute + this.itemRoute!]" mat-raised-button type="button" class="btn-outline-info">פרטים</button>

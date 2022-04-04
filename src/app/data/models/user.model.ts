@@ -1,7 +1,7 @@
 /**
- * Represents a manager model.
+ * Represents a user model.
  */
-export class ManagerModel {
+export class UserModel {
     id?: string;
     firstName?: string;
     lastName?: string;
