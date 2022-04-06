@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/']);
             },
             error: (error: HttpErrorResponse) => {
-                if (error.message == ErrorId.Invalid) {
+                if (error.message.includes(ErrorId.Invalid)) {
                     this.snackBar.show("דוא\"ל או סיסמה לא נכונים");
                 } else {
                     this.snackBar.show("אירעה שגיאה, אנא נסה שוב");

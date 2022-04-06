@@ -83,6 +83,7 @@ export class UsersService {
   }
 
   updateUserEmailSecure(id: string, currentEmail: string, password: string, newEmail: string) {
+    // TODO
     return this.updateUserEmailSecureGQL.mutate({
       id: id,
       currentEmail: currentEmail,

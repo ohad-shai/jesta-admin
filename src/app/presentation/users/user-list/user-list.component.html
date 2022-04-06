@@ -1,8 +1,50 @@
-<section class="container">
-    <header class="mb-3">
-        <h1 class="title-1">משתמשים</h1>
-    </header>
+<app-basic-list-page forRoute="/users" title="משתמשים">
+    <mat-card class="mat-elevation-z4">
+        <div class="table-wrapper mb-2">
+            <table mat-table recycleRows [dataSource]="tableDataSource">
+                <!-- Id Column -->
+                <ng-container matColumnDef="id" class="mat-column-id">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
+                    <mat-cell [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
+                    <mat-cell [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element">{{ element.getFullName() }}</mat-cell>
+                </ng-container>
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions" class="mat-column-actions">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">
+                        <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
+                            <button [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                            <button [routerLink]="['/users/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                            <button [routerLink]="['/users/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                        </div>
+                        <div *ifScreenBelow="'md'">
+                            <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button [routerLink]="['/users/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">עריכה</button>
+                                <button [routerLink]="['/users/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">מחיקה</button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
 
-    <mat-card>
+                <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: tableColumns; let i = index"></mat-row>
+
+                <!-- If no data: -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell mat-no-data" colspan="4">אין נתונים</td>
+                </tr>
+            </table>
+        </div>
+        <!-- If loading: -->
+        <div class="loading-blocker" *ngIf="tableLoading">
+            <div class="loading-sheen"></div>
+        </div>
     </mat-card>
-</section>
+</app-basic-list-page>

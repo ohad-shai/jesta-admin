@@ -16,15 +16,15 @@ import { AuthData } from '../objects/auth-data';
 export class ManagersService {
 
   constructor(
-    private getUser: GetUserGQL,
-    private getAllManagers: GetAllManagersGQL,
-    private signUpAdmin: SignUpAdminGQL,
-    private updateUser: UpdateUserGQL,
-    private deleteUser: DeleteUserGQL,
+    private getUserGQL: GetUserGQL,
+    private getAllManagersGQL: GetAllManagersGQL,
+    private signUpAdminGQL: SignUpAdminGQL,
+    private updateUserGQL: UpdateUserGQL,
+    private deleteUserGQL: DeleteUserGQL,
   ) { }
 
   getManagerById(id: string) {
-    return this.getUser.watch({
+    return this.getUserGQL.watch({
       id: id
     }).valueChanges.pipe(
       map(result => new ManagerModel(
@@ -36,14 +36,14 @@ export class ManagersService {
     );
   }
 
-  getManagers() {
-    return this.getAllManagers.watch().valueChanges.pipe(
+  getAllManagers() {
+    return this.getAllManagersGQL.watch().valueChanges.pipe(
       map(result => result.data.getAllAdmins.map(x => new ManagerModel(x._id, x.firstName, x.lastName)))
     );
   }
 
   createManager(manager: ManagerModel) {
-    return this.signUpAdmin.mutate({
+    return this.signUpAdminGQL.mutate({
       userParams: <UserCreateInputGQL>{
         firstName: manager.firstName,
         lastName: manager.lastName,
@@ -59,7 +59,7 @@ export class ManagersService {
   }
 
   updateManager(manager: ManagerModel) {
-    return this.updateUser.mutate({
+    return this.updateUserGQL.mutate({
       id: manager.id,
       updatedUser: <UserUpdateInputGQL>{
         firstName: manager.firstName,
@@ -73,7 +73,7 @@ export class ManagersService {
   }
 
   deleteManager(id: string) {
-    return this.deleteUser.mutate({
+    return this.deleteUserGQL.mutate({
       id: id
     }).pipe(
       map(result => result.data?.deleteUser)

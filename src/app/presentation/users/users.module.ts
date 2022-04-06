@@ -5,10 +5,12 @@ import { SharedModule } from '../_shared/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
 
 import { UserListComponent } from './user-list/user-list.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
     declarations: [
-        UserListComponent
+        UserListComponent,
+        UserComponent
     ],
     imports: [
         CommonModule,

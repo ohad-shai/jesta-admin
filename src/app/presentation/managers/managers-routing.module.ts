@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../_shared/layout/layout.component';
 import { ComponentMode } from '../_shared/objects/component-mode';
+
 import { ManagerListComponent } from './manager-list/manager-list.component';
 import { ManagerComponent } from './manager/manager.component';
 

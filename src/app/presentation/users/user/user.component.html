@@ -1,0 +1,124 @@
+<app-basic-item-page [itemName]="user.getFullName()" [itemRoute]="'/' + user.id" listName="משתמשים" listRoute="/users" titleForCreate="משתמש חדש" titleForRead="פרטי משתמש: " titleForUpdate="עריכת משתמש: " titleForDelete="מחיקת משתמש: ">
+    <mat-card class="mat-elevation-z4">
+        <div class="sbs-forms">
+            <div>
+                <h3 *ngIf="this.isDeleteMode()" class="tag tag-danger">האם בטוח שברצונך למחוק זאת?</h3>
+                <form [formGroup]="form" (submit)="this.isCreateMode() ? performCreate() : this.isUpdateMode() ? performUpdate() : this.isDeleteMode() ? performDelete() : null">
+                    <div class="sbs-fields">
+                        <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
+                            <mat-label>שם פרטי</mat-label>
+                            <input formControlName="firstName" matInput type="text" autocomplete="given-name" [readonly]="!this.isEditableMode()" />
+                            <button *ngIf="this.isEditableMode() && form.controls['firstName'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['firstName'].reset()" tabindex="-1">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="form.controls['firstName'].hasError('required')">
+                                יש להזין שם פרטי
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['firstName'].hasError('maxlength')">
+                                אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
+                            <mat-label>שם משפחה</mat-label>
+                            <input formControlName="lastName" matInput type="text" autocomplete="family-name" [readonly]="!this.isEditableMode()" />
+                            <button *ngIf="this.isEditableMode() && form.controls['lastName'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['lastName'].reset()" tabindex="-1">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="form.controls['lastName'].hasError('required')">
+                                יש להזין שם משפחה
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['lastName'].hasError('maxlength')">
+                                אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field class="w-100" appearance="outline" [attr.readonly]="!this.isEditableMode()">
+                        <mat-label>דוא"ל</mat-label>
+                        <input formControlName="email" matInput type="email" autocomplete="email" [readonly]="!this.isEditableMode()" />
+                        <button *ngIf="this.isEditableMode() && form.controls['email'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['email'].reset()" tabindex="-1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['email'].hasError('required')">
+                            יש להזין כתובת דוא"ל
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['email'].hasError('email')">
+                            כתובת דוא"ל לא תקינה
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['email'].hasError('maxlength')">
+                            אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="this.isEditableMode()" class="w-100" appearance="outline">
+                        <mat-label>סיסמה</mat-label>
+                        <input formControlName="password" matInput type="password" autocomplete="off" />
+                        <button *ngIf="this.isEditableMode() && form.controls['password'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['password'].reset()" tabindex="-1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['password'].hasError('required')">
+                            יש להזין סיסמה
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('minlength')">
+                            אורך מינימאלי הוא 8 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('maxlength')">
+                            אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('mustHaveLowercase')">
+                            חייב לפחות אות קטנה אחת (a-z)
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('mustHaveUppercase')">
+                            חייב לפחות אות גדולה אחת (A-Z)
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="this.isEditableMode()" class="w-100" appearance="outline">
+                        <mat-label>סיסמה שוב</mat-label>
+                        <input formControlName="passwordConfirm" matInput type="password" autocomplete="off" />
+                        <button *ngIf="this.isEditableMode() && form.controls['passwordConfirm'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['passwordConfirm'].reset()" tabindex="-1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('required')">
+                            יש להזין סיסמה
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('minlength')">
+                            אורך מינימאלי הוא 8 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('maxlength')">
+                            אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('mustHaveLowercase')">
+                            חייב לפחות אות קטנה אחת (a-z)
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('mustHaveUppercase')">
+                            חייב לפחות אות גדולה אחת (A-Z)
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('equals')">
+                            הסיסמאות אינן זהות
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="d-flex flex-jc-between flex-ai-center">
+                        <button [routerLink]="['/users']" type="button" mat-button class="px-3 py-2">
+                            <mat-icon class="ml-1">chevron_right</mat-icon>
+                            <span>חזרה</span>
+                        </button>
+                        <button *ngIf="this.isEditableMode()" type="submit" mat-raised-button color="primary" class="px-4 py-2" [disabled]="form.invalid || formLoading || initialLoading">
+                            <span>{{ this.isCreateMode() ? 'הוספה' : 'עריכה' }}</span>
+                            <mat-icon class="mr-1">chevron_left</mat-icon>
+                        </button>
+                        <button *ngIf="this.isDeleteMode()" type="submit" mat-raised-button color="warn" class="px-4 py-2" [disabled]="formLoading || initialLoading">
+                            <span>מחיקה</span>
+                            <mat-icon class="mr-1">chevron_left</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="sbs-form-icon">
+                <mat-icon>admin_panel_settings</mat-icon>
+            </div>
+        </div>
+        <!-- If loading: -->
+        <div class="loading-blocker" *ngIf="initialLoading || formLoading">
+            <div *ngIf="initialLoading" class="loading-sheen"></div>
+            <mat-progress-bar *ngIf="formLoading" class="overlay-bottom" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </mat-card>
+</app-basic-item-page>

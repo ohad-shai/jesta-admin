@@ -9,17 +9,17 @@ import { ValidationBundles } from '../../_shared/validators/validation-bundles';
 import { equals } from '../../_shared/validators/equals.validator';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorId } from 'src/app/data/utilities/error-id';
-import { ManagerModel } from 'src/app/data/models/manager.model';
-import { ManagersService } from 'src/app/core/services/managers.service';
+import { UserModel } from 'src/app/data/models/user.model';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
-  selector: 'app-manager',
-  templateUrl: './manager.component.html'
+  selector: 'app-user',
+  templateUrl: './user.component.html'
 })
-export class ManagerComponent extends MultiComponent implements OnInit {
+export class UserComponent extends MultiComponent implements OnInit {
 
   initialLoading: boolean = false;
-  manager: ManagerModel = new ManagerModel();
+  user: UserModel = new UserModel();
   form!: FormGroup;
   formLoading: boolean = false;
 
@@ -28,7 +28,7 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: SnackBarUtil,
-    private managersService: ManagersService,
+    private usersService: UsersService,
   ) { super(); }
 
   ngOnInit() {
@@ -62,15 +62,15 @@ export class ManagerComponent extends MultiComponent implements OnInit {
 
       if (!this.isCreateMode()) {
         this.route.params.subscribe(params => {
-          // Gets the manager from the server:
+          // Gets the user from the server:
           this.initialLoading = true;
-          this.managersService.getManagerById(params["id"]).subscribe({
+          this.usersService.getUserById(params["id"]).subscribe({
             next: (data) => {
-              this.manager = data;
-              this.form.controls["firstName"].setValue(this.manager.firstName);
-              this.form.controls["lastName"].setValue(this.manager.lastName);
-              this.form.controls["email"].setValue(this.manager.email);
-              this.title.setTitle('ג\'סטה | ניהול | ' + this.manager.getFullName());
+              this.user = data;
+              this.form.controls["firstName"].setValue(this.user.firstName);
+              this.form.controls["lastName"].setValue(this.user.lastName);
+              this.form.controls["email"].setValue(this.user.email);
+              this.title.setTitle('ג\'סטה | ניהול | ' + this.user.getFullName());
               this.initialLoading = false;
             },
             error: (error) => {
@@ -87,15 +87,15 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-    this.managersService.createManager(<ManagerModel>{
+    this.usersService.createUser(<UserModel>{
       firstName: this.form.controls['firstName'].value,
       lastName: this.form.controls['lastName'].value,
       email: this.form.controls['email'].value.toLowerCase(),
       password: this.form.controls['password'].value,
     }).subscribe({
       next: () => {
-        this.router.navigate(['/managers']);
-        this.snackBar.show("המנהל נוסף בהצלחה");
+        this.router.navigate(['/users']);
+        this.snackBar.show("המשתמש נוסף בהצלחה");
         this.formLoading = false;
       },
       error: (error: HttpErrorResponse) => {
@@ -113,16 +113,16 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-    this.managersService.updateManager(<ManagerModel>{
-      id: this.manager.id,
+    this.usersService.updateUser(<UserModel>{
+      id: this.user.id,
       firstName: this.form.controls['firstName'].value,
       lastName: this.form.controls['lastName'].value,
       email: this.form.controls['email'].value.toLowerCase(),
       password: (this.form.controls['password'].value ? this.form.controls['password'].value : undefined),
     }).subscribe({
       next: (result) => {
-        this.router.navigate(['/managers/' + this.manager.id]);
-        this.snackBar.show("המנהל עודכן בהצלחה");
+        this.router.navigate(['/users/' + this.user.id]);
+        this.snackBar.show("המשתמש עודכן בהצלחה");
         this.formLoading = false;
       },
       error: (error: HttpErrorResponse) => {
@@ -140,16 +140,16 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.formLoading) return;
 
     this.formLoading = true;
-    this.managersService.deleteManager(this.manager.id!).subscribe({
+    this.usersService.deleteUser(this.user.id!).subscribe({
       next: () => {
-        this.router.navigate(['/managers']);
-        this.snackBar.show("המנהל נמחק בהצלחה");
+        this.router.navigate(['/users']);
+        this.snackBar.show("המשתמש נמחק בהצלחה");
         this.formLoading = false;
       },
       error: (error: HttpErrorResponse) => {
         if (error.message.includes(ErrorId.NotExists)) {
-          this.router.navigate(['/managers']);
-          this.snackBar.show("המנהל נמחק בהצלחה");
+          this.router.navigate(['/users']);
+          this.snackBar.show("המשתמש נמחק בהצלחה");
         } else {
           this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
         }

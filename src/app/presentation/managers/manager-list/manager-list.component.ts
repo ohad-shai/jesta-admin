@@ -11,7 +11,7 @@ import { ManagersService } from 'src/app/core/services/managers.service';
 })
 export class ManagerListComponent implements OnInit {
 
-  managers: Array<ManagerModel> = [];
+  managers: ManagerModel[] = [];
   tableColumns: string[] = ['id', 'name', 'actions'];
   tableDataSource = new MatTableDataSource<ManagerModel>();
   tableLoading: boolean = false;
@@ -27,7 +27,7 @@ export class ManagerListComponent implements OnInit {
 
     this.tableLoading = true;
 
-    this.managersService.getManagers().subscribe({
+    this.managersService.getAllManagers().subscribe({
       next: (data) => {
         this.managers = data;
         this.tableDataSource = new MatTableDataSource(this.managers);
