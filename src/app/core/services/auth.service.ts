@@ -87,6 +87,10 @@ export class AuthService {
     }
   }
 
+  updateCurrentUser(toUpdate: UserIdentity) {
+    this.currentUserSubject.next(toUpdate);
+  }
+
   /* #endregion */
 
   /* #region  Private Methods */

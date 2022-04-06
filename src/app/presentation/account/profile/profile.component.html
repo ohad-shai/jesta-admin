@@ -5,7 +5,7 @@
 
     <mat-accordion>
         <!-- Update Name: -->
-        <mat-expansion-panel>
+        <mat-expansion-panel #updateNamePanel>
             <mat-expansion-panel-header>
                 <mat-panel-title>שם מלא</mat-panel-title>
                 <mat-panel-description>{{ updateNameSettingValue }}</mat-panel-description>
@@ -49,7 +49,7 @@
         </mat-expansion-panel>
 
         <!-- Update Email: -->
-        <mat-expansion-panel>
+        <mat-expansion-panel #updateEmailPanel>
             <mat-expansion-panel-header>
                 <mat-panel-title>דוא"ל</mat-panel-title>
                 <mat-panel-description>{{ updateEmailSettingValue }}</mat-panel-description>

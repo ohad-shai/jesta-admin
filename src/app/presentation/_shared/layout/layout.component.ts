@@ -24,7 +24,9 @@ export class LayoutComponent {
 
   ngOnInit() {
     this.updateSideNavState();
-    this.currentUserFirstName = this.authService.getCurrentUser()?.firstName;
+    this.authService.observeCurrentUser().subscribe(currentUser => {
+      this.currentUserFirstName = currentUser!.firstName;
+    });
   }
 
   @HostListener('window:resize')

@@ -1,9 +1,14 @@
 /**
  * Represents a user identity.
  */
-export interface UserIdentity {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
+export class UserIdentity {
+    id!: string
+    firstName!: string;
+    lastName!: string;
+    email!: string;
+
+    getFullName() {
+        return (this.firstName + ' ' + this.lastName)
+    }
+
 }

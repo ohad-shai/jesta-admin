@@ -87,7 +87,6 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-
     this.managersService.createManager(<ManagerModel>{
       firstName: this.form.controls['firstName'].value,
       lastName: this.form.controls['lastName'].value,
@@ -114,7 +113,6 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-
     this.managersService.updateManager(<ManagerModel>{
       id: this.manager.id,
       firstName: this.form.controls['firstName'].value,
@@ -142,7 +140,6 @@ export class ManagerComponent extends MultiComponent implements OnInit {
     if (this.formLoading) return;
 
     this.formLoading = true;
-
     this.managersService.deleteManager(this.manager.id!).subscribe({
       next: () => {
         this.router.navigate(['/managers']);
