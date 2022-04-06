@@ -8,8 +8,7 @@ import { PerformObjectGQL } from '../objects/perform.object.gql';
 export class CreatePerformGQL extends Mutation<Response> {
   override document = gql`
         mutation CreatePerform($perform: PerformInput) {
-          createPerform(perform: $perform) {
-          }
+          createPerform(perform: $perform)
         }
     `;
 }

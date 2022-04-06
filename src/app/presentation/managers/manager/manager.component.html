@@ -58,10 +58,16 @@
                             יש להזין סיסמה
                         </mat-error>
                         <mat-error *ngIf="form.controls['password'].hasError('minlength')">
-                            אורך מינימאלי הוא 6 תווים
+                            אורך מינימאלי הוא 8 תווים
                         </mat-error>
                         <mat-error *ngIf="form.controls['password'].hasError('maxlength')">
                             אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('mustHaveLowercase')">
+                            חייב לפחות אות קטנה אחת (a-z)
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('mustHaveUppercase')">
+                            חייב לפחות אות גדולה אחת (A-Z)
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field *ngIf="this.isEditableMode()" class="w-100" appearance="outline">
@@ -74,10 +80,16 @@
                             יש להזין סיסמה
                         </mat-error>
                         <mat-error *ngIf="form.controls['passwordConfirm'].hasError('minlength')">
-                            אורך מינימאלי הוא 6 תווים
+                            אורך מינימאלי הוא 8 תווים
                         </mat-error>
                         <mat-error *ngIf="form.controls['passwordConfirm'].hasError('maxlength')">
                             אורך מקסימאלי הוא 50 תווים
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('mustHaveLowercase')">
+                            חייב לפחות אות קטנה אחת (a-z)
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['passwordConfirm'].hasError('mustHaveUppercase')">
+                            חייב לפחות אות גדולה אחת (A-Z)
                         </mat-error>
                         <mat-error *ngIf="form.controls['passwordConfirm'].hasError('equals')">
                             הסיסמאות אינן זהות

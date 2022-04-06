@@ -6,9 +6,8 @@ import { gql, Mutation } from 'apollo-angular';
 })
 export class DeleteUserGQL extends Mutation<Response> {
   override document = gql`
-        mutation DeleteUser($_id: String, $email: String) {
-          deleteUser(_id: $_id, email: $email) {
-          }
+        mutation DeleteUser($id: String, $email: String) {
+          deleteUser(_id: $id, email: $email)
         }
     `;
 }

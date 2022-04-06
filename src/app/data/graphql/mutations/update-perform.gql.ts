@@ -7,8 +7,7 @@ import { gql, Mutation } from 'apollo-angular';
 export class UpdatePerformGQL extends Mutation<Response> {
   override document = gql`
         mutation UpdatePerform($performId: String, $updatedPerform: UpdatePerformInput) {
-          updatePerform(performId: $performId, updatedPerform: $updatedPerform) {
-          }
+          updatePerform(performId: $performId, updatedPerform: $updatedPerform)
         }
     `;
 }

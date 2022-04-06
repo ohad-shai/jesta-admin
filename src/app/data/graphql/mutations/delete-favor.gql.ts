@@ -7,8 +7,7 @@ import { gql, Mutation } from 'apollo-angular';
 export class DeleteFavorGQL extends Mutation<Response> {
   override document = gql`
         mutation DeleteFavor($favorId: String) {
-          deleteFavor(favorId: $favorId) {
-          }
+          deleteFavor(favorId: $favorId)
         }
     `;
 }

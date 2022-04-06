@@ -9,7 +9,7 @@
 
     <button *ifScreenAbove="'xs'" mat-button type="button" [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-        <span class="mr-1">{{currentUserFirstName}}</span>
+        <span class="mr-1">{{ currentUserFirstName }}</span>
     </button>
     <button *ifScreenBelow="'xs'" mat-icon-button type="button" [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>

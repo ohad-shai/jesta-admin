@@ -7,8 +7,7 @@ import { gql, Mutation } from 'apollo-angular';
 export class UpdateCategoryGQL extends Mutation<Response> {
   override document = gql`
         mutation UpdateCategory($nameToChange: String, $changedName: string) {
-          updateCategory(nameToChange: $nameToChange, changedName: $changedName) {
-          }
+          updateCategory(nameToChange: $nameToChange, changedName: $changedName)
         }
     `;
 }

@@ -84,10 +84,16 @@
                                 יש להזין סיסמה
                             </mat-error>
                             <mat-error *ngIf="updateEmailForm.controls['password'].hasError('minlength')">
-                                אורך מינימאלי הוא 6 תווים
+                                אורך מינימאלי הוא 8 תווים
                             </mat-error>
                             <mat-error *ngIf="updateEmailForm.controls['password'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                            <mat-error *ngIf="updateEmailForm.controls['password'].hasError('mustHaveLowercase')">
+                                חייב לפחות אות קטנה אחת (a-z)
+                            </mat-error>
+                            <mat-error *ngIf="updateEmailForm.controls['password'].hasError('mustHaveUppercase')">
+                                חייב לפחות אות גדולה אחת (A-Z)
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -117,10 +123,16 @@
                                 יש להזין סיסמה
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['currentPassword'].hasError('minlength')">
-                                אורך מינימאלי הוא 6 תווים
+                                אורך מינימאלי הוא 8 תווים
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['currentPassword'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['currentPassword'].hasError('mustHaveLowercase')">
+                                חייב לפחות אות קטנה אחת (a-z)
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['currentPassword'].hasError('mustHaveUppercase')">
+                                חייב לפחות אות גדולה אחת (A-Z)
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field class="minw-100" appearance="outline">
@@ -133,10 +145,16 @@
                                 יש להזין סיסמה
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('minlength')">
-                                אורך מינימאלי הוא 6 תווים
+                                אורך מינימאלי הוא 8 תווים
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('mustHaveLowercase')">
+                                חייב לפחות אות קטנה אחת (a-z)
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('mustHaveUppercase')">
+                                חייב לפחות אות גדולה אחת (A-Z)
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPassword'].hasError('notEquals')">
                                 יש להזין סיסמה שונה מהנוכחית
@@ -152,10 +170,16 @@
                                 יש להזין סיסמה
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('minlength')">
-                                אורך מינימאלי הוא 6 תווים
+                                אורך מינימאלי הוא 8 תווים
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('mustHaveLowercase')">
+                                חייב לפחות אות קטנה אחת (a-z)
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('mustHaveUppercase')">
+                                חייב לפחות אות גדולה אחת (A-Z)
                             </mat-error>
                             <mat-error *ngIf="changePasswordForm.controls['newPasswordConfirm'].hasError('equals')">
                                 הסיסמאות אינן זהות
@@ -190,10 +214,16 @@
                                 יש להזין סיסמה
                             </mat-error>
                             <mat-error *ngIf="deleteAccountForm.controls['password'].hasError('minlength')">
-                                אורך מינימאלי הוא 6 תווים
+                                אורך מינימאלי הוא 8 תווים
                             </mat-error>
                             <mat-error *ngIf="deleteAccountForm.controls['password'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                            <mat-error *ngIf="deleteAccountForm.controls['password'].hasError('mustHaveLowercase')">
+                                חייב לפחות אות קטנה אחת (a-z)
+                            </mat-error>
+                            <mat-error *ngIf="deleteAccountForm.controls['password'].hasError('mustHaveUppercase')">
+                                חייב לפחות אות גדולה אחת (A-Z)
                             </mat-error>
                         </mat-form-field>
                     </div>

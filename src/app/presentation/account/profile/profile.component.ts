@@ -22,11 +22,11 @@ export class ProfileComponent implements OnInit {
   deleteAccountForm!: FormGroup;
 
   constructor(
-    private titleService: Title
+    private title: Title
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('ג\'סטה | ניהול | הגדרות חשבון');
+    this.title.setTitle('ג\'סטה | ניהול | הגדרות חשבון');
 
     this.updateNameSettingValue = "ישראל ישראלי";
     this.updateNameForm = new FormGroup({
@@ -36,18 +36,18 @@ export class ProfileComponent implements OnInit {
 
     this.updateEmailSettingValue = "israel@gmail.com";
     this.updateEmailForm = new FormGroup({
-      email: new FormControl('israel@gmail.com', ValidationBundles.email()), // TODO: add validator email does not exist.
-      password: new FormControl('', ValidationBundles.password())
+      email: new FormControl('israel@gmail.com', ValidationBundles.emailRequired()), // TODO: add validator email does not exist.
+      password: new FormControl('', ValidationBundles.passwordRequired())
     });
 
     this.changePasswordForm = new FormGroup({
-      currentPassword: new FormControl('', ValidationBundles.password()),
-      newPassword: new FormControl('', ValidationBundles.password()),
-      newPasswordConfirm: new FormControl('', ValidationBundles.password())
+      currentPassword: new FormControl('', ValidationBundles.passwordRequired()),
+      newPassword: new FormControl('', ValidationBundles.passwordRequired()),
+      newPasswordConfirm: new FormControl('', ValidationBundles.passwordRequired())
     }, { validators: [equals('newPasswordConfirm', 'newPassword'), notEquals('newPassword', 'currentPassword')] });
 
     this.deleteAccountForm = new FormGroup({
-      password: new FormControl('', ValidationBundles.password())
+      password: new FormControl('', ValidationBundles.passwordRequired())
     });
   }
 

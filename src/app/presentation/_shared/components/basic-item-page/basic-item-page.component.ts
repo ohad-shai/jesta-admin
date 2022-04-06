@@ -21,14 +21,14 @@ export class BasicItemPageComponent extends MultiComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private titleService: Title,
+    private title: Title,
   ) { super(); }
 
   ngOnInit() {
     if (history.state.itemName)
-      this.titleService.setTitle('ג\'סטה | ניהול | ' + history.state.itemName);
+      this.title.setTitle('ג\'סטה | ניהול | ' + history.state.itemName);
     else
-      this.titleService.setTitle('ג\'סטה | ניהול | ');
+      this.title.setTitle('ג\'סטה | ניהול | ');
 
     this.route.data.subscribe(data => {
       this.mode = <ComponentMode>data["mode"];

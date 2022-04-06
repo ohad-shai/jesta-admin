@@ -7,8 +7,7 @@ import { gql, Mutation } from 'apollo-angular';
 export class CreateFavorTransactionRequestGQL extends Mutation<Response> {
   override document = gql`
         mutation CreateFavorTransactionRequest($favorId: String!, $comment: String) {
-          createFavorTransactionRequest(favorId: $favorId, comment: $comment) {
-          }
+          createFavorTransactionRequest(favorId: $favorId, comment: $comment)
         }
     `;
 }

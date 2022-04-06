@@ -6,6 +6,7 @@ export class UserModel {
     firstName?: string;
     lastName?: string;
     email?: string;
+    password?: string;
 
     constructor();
     constructor(id: string, firstName: string, lastName: string);

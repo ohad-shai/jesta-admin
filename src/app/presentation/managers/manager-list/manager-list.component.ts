@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
-import { UsersService } from 'src/app/core/services/users.service';
 import { ManagerModel } from 'src/app/data/models/manager.model';
+import { ManagersService } from 'src/app/core/services/managers.service';
 
 @Component({
   selector: 'app-manager-list',
@@ -17,17 +17,17 @@ export class ManagerListComponent implements OnInit {
   tableLoading: boolean = false;
 
   constructor(
-    private titleService: Title,
+    private title: Title,
     private snackBar: SnackBarUtil,
-    private usersService: UsersService,
+    private managersService: ManagersService,
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('ג\'סטה | ניהול | מנהלים');
+    this.title.setTitle('ג\'סטה | ניהול | מנהלים');
 
     this.tableLoading = true;
 
-    this.usersService.getManagers().subscribe({
+    this.managersService.getManagers().subscribe({
       next: (data) => {
         this.managers = data;
         this.tableDataSource = new MatTableDataSource(this.managers);

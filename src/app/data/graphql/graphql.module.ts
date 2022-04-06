@@ -10,6 +10,14 @@ function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     return {
         link: httpLink.create({ uri: environment.GRAPHQL_API_PATH }),
         cache: new InMemoryCache(),
+        defaultOptions: {
+            watchQuery: {
+                fetchPolicy: 'no-cache',
+            },
+            query: {
+                fetchPolicy: 'no-cache',
+            },
+        }
     };
 }
 

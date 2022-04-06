@@ -113,11 +113,13 @@ export class AuthService {
   private getCurrentUserAuthFromStorage(): AuthData | null {
     let authData = localStorage.getItem(AuthService.AUTH_STORAGE_KEY);
     if (authData != null) {
-      return <AuthData>JSON.parse(authData);
+      let obj = JSON.parse(authData);
+      return <AuthData>{ token: obj.token, userId: obj.uid };
     }
     authData = sessionStorage.getItem(AuthService.AUTH_STORAGE_KEY);
     if (authData != null) {
-      return <AuthData>JSON.parse(authData);
+      let obj = JSON.parse(authData);
+      return <AuthData>{ token: obj.token, userId: obj.uid };
     }
     return null;
   }
