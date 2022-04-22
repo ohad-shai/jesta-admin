@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { UserCreateInputGQL } from 'src/app/data/graphql/inputs/user-create.input.gql';
-import { UserUpdateInputGQL } from 'src/app/data/graphql/inputs/user-update.input.gql copy';
+import { UserSecureUpdateInputGQL } from 'src/app/data/graphql/inputs/user-secure-update.input.gql';
+import { UserUpdateInputGQL } from 'src/app/data/graphql/inputs/user-update.input.gql';
 import { DeleteUserGQL } from 'src/app/data/graphql/mutations/delete-user.gql';
+import { SecureEmailPasswordAccountUpdateGQL } from 'src/app/data/graphql/mutations/secure-email-password-account-update.gql';
 import { SignUpAdminGQL } from 'src/app/data/graphql/mutations/sign-up-admin.gql';
-import { UpdateUserEmailSecureGQL } from 'src/app/data/graphql/mutations/update-user-email-secure.gql';
+import { SignUpUserGQL } from 'src/app/data/graphql/mutations/sign-up-user.gql';
 import { UpdateUserGQL } from 'src/app/data/graphql/mutations/update-user.gql';
-import { GetAllUsersGQL } from 'src/app/data/graphql/queries/get-all-users.gql';
+import { GetAllClientsGQL } from 'src/app/data/graphql/queries/get-all-clients.gql';
 import { GetUserGQL } from 'src/app/data/graphql/queries/get-user.gql';
 import { UserModel } from 'src/app/data/models/user.model';
 import { AuthData } from '../objects/auth-data';
@@ -18,11 +20,11 @@ export class UsersService {
 
   constructor(
     private getUserGQL: GetUserGQL,
-    private getAllUsersGQL: GetAllUsersGQL,
-    private signUpUserGQL: SignUpAdminGQL,
+    private getAllClientsGQL: GetAllClientsGQL,
+    private signUpUserGQL: SignUpUserGQL,
     private updateUserGQL: UpdateUserGQL,
     private deleteUserGQL: DeleteUserGQL,
-    private updateUserEmailSecureGQL: UpdateUserEmailSecureGQL,
+    private secureEmailPasswordAccountUpdateGQL: SecureEmailPasswordAccountUpdateGQL,
   ) { }
 
   getUserById(id: string): Observable<UserModel> {
@@ -38,9 +40,9 @@ export class UsersService {
     );
   }
 
-  getAllUsers(): Observable<UserModel[]> {
-    return this.getAllUsersGQL.watch().valueChanges.pipe(
-      map(result => result.data.getAllUsers.map(x => new UserModel(x._id, x.firstName, x.lastName)))
+  getAllClients(): Observable<UserModel[]> {
+    return this.getAllClientsGQL.watch().valueChanges.pipe(
+      map(result => result.data.getAllClients.map(x => new UserModel(x._id, x.firstName, x.lastName)))
     );
   }
 
@@ -54,8 +56,8 @@ export class UsersService {
       }
     }).pipe(
       map(result => <AuthData>{
-        userId: result.data?.signUpAdmin.userId,
-        token: result.data?.signUpAdmin.token,
+        userId: result.data?.signUpUser.userId,
+        token: result.data?.signUpUser.token,
       })
     );
   }
@@ -83,16 +85,39 @@ export class UsersService {
   }
 
   updateUserEmailSecure(id: string, currentEmail: string, password: string, newEmail: string) {
-    // TODO
-    return this.updateUserEmailSecureGQL.mutate({
+    return this.secureEmailPasswordAccountUpdateGQL.mutate({
       id: id,
-      currentEmail: currentEmail,
+      email: currentEmail,
       password: password,
-      toUpdate: <UserUpdateInputGQL>{
+      updateParams: <UserSecureUpdateInputGQL>{
         email: newEmail,
       },
     }).pipe(
-      map(result => result.data?.connectUser)
+      map(result => result.data?.secureEmailPasswordAccountUpdate)
+    );
+  }
+
+  updateUserPasswordSecure(id: string, password: string, newPassword: string) {
+    return this.secureEmailPasswordAccountUpdateGQL.mutate({
+      id: id,
+      password: password,
+      updateParams: <UserSecureUpdateInputGQL>{
+        password: newPassword
+      },
+    }).pipe(
+      map(result => result.data?.secureEmailPasswordAccountUpdate)
+    );
+  }
+
+  deleteUserAccountSecure(id: string, password: string) {
+    return this.secureEmailPasswordAccountUpdateGQL.mutate({
+      id: id,
+      password: password,
+      updateParams: <UserSecureUpdateInputGQL>{
+        accountDelete: true
+      },
+    }).pipe(
+      map(result => result.data?.secureEmailPasswordAccountUpdate)
     );
   }
 

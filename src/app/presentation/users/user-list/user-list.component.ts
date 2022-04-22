@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
 
     this.tableLoading = true;
 
-    this.usersService.getAllUsers().subscribe({
+    this.usersService.getAllClients().subscribe({
       next: (data) => {
         this.users = data;
         this.tableDataSource = new MatTableDataSource(this.users);

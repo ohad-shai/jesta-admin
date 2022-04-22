@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
 
     this.updateEmailSettingValue = this.currentUser!.email;
     this.updateEmailForm = new FormGroup({
-      email: new FormControl(this.currentUser!.email, ValidationBundles.emailRequired()), // TODO: add validator email does not exist.
+      email: new FormControl(this.currentUser!.email, ValidationBundles.emailRequired()),
       password: new FormControl('', ValidationBundles.passwordRequired())
     });
 
@@ -106,6 +106,13 @@ export class ProfileComponent implements OnInit {
     const email = this.updateEmailForm.controls['email'].value.toLowerCase();
     const password = this.updateEmailForm.controls['password'].value;
 
+    // TODO: remove...
+    // console.log(this.currentUser!.id);
+    // console.log(this.currentUser!.email);
+    // console.log(password);
+    // console.log(email);
+
+
     this.usersService.updateUserEmailSecure(this.currentUser!.id, this.currentUser!.email, password, email).subscribe({
       next: () => {
         this.updateEmailSettingValue = email;
@@ -115,7 +122,7 @@ export class ProfileComponent implements OnInit {
         this.updateEmailPanel.expanded = false;
       },
       error: (error: HttpErrorResponse) => {
-        if (error.message.includes(ErrorId.Invalid)) {
+        if (error.message.includes(ErrorId.Unauthorized) || error.message.includes(ErrorId.Invalid)) {
           this.snackBar.show("סיסמה לא נכונה");
         } else if (error.message.includes(ErrorId.Exists)) {
           this.snackBar.show("כתובת הדוא\"ל כבר תפוסה");
@@ -130,19 +137,50 @@ export class ProfileComponent implements OnInit {
   changePassword() {
     if (this.changePasswordForm.invalid || this.changePasswordFormLoading) return;
 
+    this.changePasswordFormLoading = true;
+
     const currentPassword = this.changePasswordForm.controls['currentPassword'].value;
     const newPassword = this.changePasswordForm.controls['newPassword'].value;
-    const newPasswordConfirm = this.changePasswordForm.controls['newPasswordConfirm'].value;
 
-    this.changePasswordFormLoading = true;
+    this.usersService.updateUserPasswordSecure(this.currentUser!.id, currentPassword, newPassword).subscribe({
+      next: () => {
+        this.changePasswordFormLoading = false;
+        this.changePasswordPanel.expanded = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.message.includes(ErrorId.Unauthorized) || error.message.includes(ErrorId.Invalid)) {
+          this.snackBar.show("סיסמה נוכחית לא נכונה");
+        } else {
+          this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+        }
+        this.changePasswordFormLoading = false;
+      }
+    });
   }
 
   deleteAccount() {
     if (this.deleteAccountForm.invalid || this.deleteAccountFormLoading) return;
 
+    this.deleteAccountFormLoading = true;
+
     const password = this.deleteAccountForm.controls['password'].value;
 
-    this.deleteAccountFormLoading = true;
+    this.usersService.deleteUserAccountSecure(this.currentUser!.id, password).subscribe({
+      next: () => {
+        this.deleteAccountFormLoading = false;
+        this.deleteAccountPanel.expanded = false;
+        this.authService.logout();
+        this.snackBar.show("חשבונך נמחק בהצלחה");
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.message.includes(ErrorId.Unauthorized) || error.message.includes(ErrorId.Invalid)) {
+          this.snackBar.show("סיסמה לא נכונה");
+        } else {
+          this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+        }
+        this.deleteAccountFormLoading = false;
+      }
+    });
   }
 
 }

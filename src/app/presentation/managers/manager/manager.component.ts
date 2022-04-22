@@ -40,7 +40,7 @@ export class ManagerComponent extends MultiComponent implements OnInit {
         this.form = new FormGroup({
           firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
           lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.emailRequired()), // TODO: check email in DB
+          email: new FormControl('', ValidationBundles.emailRequired()),
           password: new FormControl('', ValidationBundles.passwordRequired()),
           passwordConfirm: new FormControl('', ValidationBundles.passwordRequired())
         }, { validators: [equals('passwordConfirm', 'password')] });
@@ -48,7 +48,7 @@ export class ManagerComponent extends MultiComponent implements OnInit {
         this.form = new FormGroup({
           firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
           lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.emailRequired()), // TODO: check email in DB
+          email: new FormControl('', ValidationBundles.emailRequired()),
           password: new FormControl('', ValidationBundles.password()),
           passwordConfirm: new FormControl('', ValidationBundles.password())
         }, { validators: [equals('passwordConfirm', 'password')] });
@@ -56,7 +56,7 @@ export class ManagerComponent extends MultiComponent implements OnInit {
         this.form = new FormGroup({
           firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
           lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.email()), // TODO: check email in DB
+          email: new FormControl('', ValidationBundles.email()),
         });
       }
 

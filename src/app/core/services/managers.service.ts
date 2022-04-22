@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { UserCreateInputGQL } from 'src/app/data/graphql/inputs/user-create.input.gql';
-import { UserUpdateInputGQL } from 'src/app/data/graphql/inputs/user-update.input.gql copy';
+import { UserUpdateInputGQL } from 'src/app/data/graphql/inputs/user-update.input.gql';
 import { DeleteUserGQL } from 'src/app/data/graphql/mutations/delete-user.gql';
 import { SignUpAdminGQL } from 'src/app/data/graphql/mutations/sign-up-admin.gql';
 import { UpdateUserGQL } from 'src/app/data/graphql/mutations/update-user.gql';

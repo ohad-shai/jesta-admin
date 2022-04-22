@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LayoutComponent {
   isSidenavOpened = true;
-  currentUserFirstName?= '';
+  currentUserFirstName: string | null = null;
   @ViewChild('toolbar', { static: true }) toolbar!: MatToolbar;
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
 
@@ -25,7 +25,7 @@ export class LayoutComponent {
   ngOnInit() {
     this.updateSideNavState();
     this.authService.observeCurrentUser().subscribe(currentUser => {
-      this.currentUserFirstName = currentUser!.firstName;
+      this.currentUserFirstName = (currentUser != null ? currentUser.firstName : null);
     });
   }
 
