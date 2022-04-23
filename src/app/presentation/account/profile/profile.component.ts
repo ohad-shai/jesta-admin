@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
 import { ValidationBundles } from '../../_shared/validators/validation-bundles';
 import { equals } from '../../_shared/validators/equals.validator';
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private title: Title,
+    private router: Router,
     private snackBar: SnackBarUtil,
     private authService: AuthService,
     private usersService: UsersService,
@@ -98,6 +100,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  resetUpdateNameForm() {
+    this.updateNameForm.controls['firstName'].setValue(this.currentUser!.firstName);
+    this.updateNameForm.controls['lastName'].setValue(this.currentUser!.lastName);
+  }
+
   updateEmail() {
     if (this.updateEmailForm.invalid || this.updateEmailFormLoading) return;
 
@@ -105,13 +112,6 @@ export class ProfileComponent implements OnInit {
 
     const email = this.updateEmailForm.controls['email'].value.toLowerCase();
     const password = this.updateEmailForm.controls['password'].value;
-
-    // TODO: remove...
-    // console.log(this.currentUser!.id);
-    // console.log(this.currentUser!.email);
-    // console.log(password);
-    // console.log(email);
-
 
     this.usersService.updateUserEmailSecure(this.currentUser!.id, this.currentUser!.email, password, email).subscribe({
       next: () => {
@@ -134,6 +134,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  resetUpdateEmailForm() {
+    this.updateEmailForm.controls['email'].setValue(this.currentUser!.email);
+    this.updateEmailForm.controls['password'].reset();
+    this.updateEmailForm.controls['password'].setErrors(null);
+  }
+
   changePassword() {
     if (this.changePasswordForm.invalid || this.changePasswordFormLoading) return;
 
@@ -146,6 +152,7 @@ export class ProfileComponent implements OnInit {
       next: () => {
         this.changePasswordFormLoading = false;
         this.changePasswordPanel.expanded = false;
+        this.snackBar.show("הסיסמה עודכנה בהצלחה");
       },
       error: (error: HttpErrorResponse) => {
         if (error.message.includes(ErrorId.Unauthorized) || error.message.includes(ErrorId.Invalid)) {
@@ -158,6 +165,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  resetChangePasswordForm() {
+    this.changePasswordForm.controls['currentPassword'].reset();
+    this.changePasswordForm.controls['currentPassword'].setErrors(null);
+    this.changePasswordForm.controls['newPassword'].reset();
+    this.changePasswordForm.controls['newPassword'].setErrors(null);
+    this.changePasswordForm.controls['newPasswordConfirm'].reset();
+    this.changePasswordForm.controls['newPasswordConfirm'].setErrors(null);
+  }
+
   deleteAccount() {
     if (this.deleteAccountForm.invalid || this.deleteAccountFormLoading) return;
 
@@ -168,9 +184,12 @@ export class ProfileComponent implements OnInit {
     this.usersService.deleteUserAccountSecure(this.currentUser!.id, password).subscribe({
       next: () => {
         this.deleteAccountFormLoading = false;
-        this.deleteAccountPanel.expanded = false;
         this.authService.logout();
-        this.snackBar.show("חשבונך נמחק בהצלחה");
+        this.deleteAccountPanel.afterCollapse.subscribe(() => {
+          this.router.navigate(['/account/login']);
+          this.snackBar.show("חשבונך נמחק בהצלחה");
+        });
+        this.deleteAccountPanel.expanded = false;
       },
       error: (error: HttpErrorResponse) => {
         if (error.message.includes(ErrorId.Unauthorized) || error.message.includes(ErrorId.Invalid)) {
@@ -181,6 +200,11 @@ export class ProfileComponent implements OnInit {
         this.deleteAccountFormLoading = false;
       }
     });
+  }
+
+  resetDeleteAccountForm() {
+    this.deleteAccountForm.controls['password'].reset();
+    this.deleteAccountForm.controls['password'].setErrors(null);
   }
 
 }

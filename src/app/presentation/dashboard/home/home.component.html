@@ -3,6 +3,30 @@
         <h1 class="title-1">תקציר</h1>
     </header>
 
-    <mat-card>
-    </mat-card>
+    <main>
+        <section class="grid-4 gap-5 mb-5">
+            <mat-card class="border-right-bold border-success hover-push p-0">
+                <a [routerLink]="['/users']" class="d-flex">
+                    <div class="flex-fill px-3 py-2">
+                        <h3 class="txt-success font-weight-bold mb-2">משתמשים</h3>
+                        <div class="txt-lg">4</div>
+                    </div>
+                    <div class="px-4 py-3">
+                        <mat-icon class="icon-lg">people</mat-icon>
+                    </div>
+                </a>
+            </mat-card>
+            <mat-card class="border-right-bold border-sky hover-push p-0"></mat-card>
+            <mat-card class="border-right-bold border-pink hover-push p-0"></mat-card>
+            <mat-card class="border-right-bold border-warning hover-push p-0"></mat-card>
+        </section>
+        <section class="sbs-forms flex-jc-center gap-5 p-0">
+            <mat-card class="p-4 sm-p-5">
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+            </mat-card>
+            <mat-card class="p-4 sm-p-5">
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+            </mat-card>
+        </section>
+    </main>
 </section>

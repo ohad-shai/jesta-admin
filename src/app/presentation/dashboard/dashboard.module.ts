@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { throwIfAlreadyLoaded } from 'src/app/core/guards/module-import.guard';
 import { SharedModule } from '../_shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { NgChartsModule } from 'ng2-charts';
 
 import { DashboardHomeComponent } from './home/home.component';
 
@@ -13,7 +14,8 @@ import { DashboardHomeComponent } from './home/home.component';
   imports: [
     CommonModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    NgChartsModule
   ]
 })
 export class DashboardModule {

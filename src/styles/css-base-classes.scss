@@ -1852,6 +1852,10 @@
     display: none !important;
 }
 
+.d-block {
+    display: block !important;
+}
+
 .d-flex {
     display: flex !important;
 }
@@ -1892,9 +1896,17 @@
     flex-direction: row !important;
 }
 
+.flex-fill {
+    flex: 1 0 0;
+}
+
 @include break-above-xs() {
     .xs-d-none {
         display: none !important;
+    }
+
+    .xs-d-block {
+        display: block !important;
     }
 
     .xs-d-flex {
@@ -1943,6 +1955,10 @@
         display: none !important;
     }
 
+    .sm-d-block {
+        display: block !important;
+    }
+
     .sm-d-flex {
         display: flex !important;
     }
@@ -1989,6 +2005,10 @@
         display: none !important;
     }
 
+    .md-d-block {
+        display: block !important;
+    }
+
     .md-d-flex {
         display: flex !important;
     }
@@ -2033,6 +2053,10 @@
 @include break-above-lg() {
     .lg-d-none {
         display: none !important;
+    }
+
+    .lg-d-block {
+        display: block !important;
     }
 
     .lg-d-flex {
