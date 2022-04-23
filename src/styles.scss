@@ -109,6 +109,10 @@ a:hover {
     color: var(--color-accent) !important;
 }
 
+.txt-primary {
+    color: var(--color-primary) !important;
+}
+
 /* #endregion */
 
 /* #region  (2.2) - Background */
@@ -249,6 +253,14 @@ a:hover {
 .icon-lg {
     font-size: 3rem;
     color: #ddd;
+}
+
+.txt-sky {
+    color: #2c8aef !important;
+}
+
+.txt-pink {
+    color: #e83e8c !important;
 }
 
 /* #endregion */

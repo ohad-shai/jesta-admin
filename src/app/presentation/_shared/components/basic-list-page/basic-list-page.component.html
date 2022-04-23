@@ -2,10 +2,10 @@
     <header>
         <ul class="breadcrumb mb-3">
             <li><a class="primary-link" [routerLink]="['/']"><u>בית</u></a></li>
-            <li>{{ title }}</li>
+            <li>{{ pageTitle }}</li>
         </ul>
         <div class="section-header">
-            <h1 class="title">{{ title }}</h1>
+            <h1 class="title">{{ pageTitle }}</h1>
             <div class="actions">
                 <button *ngIf="hasCreateButton" [routerLink]="[this.forRoute + '/create']" mat-raised-button type="button" class="btn-outline-primary">
                     <mat-icon>add</mat-icon>

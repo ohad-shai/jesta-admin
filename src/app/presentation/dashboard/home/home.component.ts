@@ -1,13 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { UsersService } from 'src/app/core/services/users.service';
+import { UserModel } from 'src/app/data/models/user.model';
+import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
 export class DashboardHomeComponent implements OnInit {
+
+  users: UserModel[] = [];
+  tableUsersColumns: string[] = ['id', 'name', 'actions'];
+  tableUsersDataSource = new MatTableDataSource<UserModel>();
+  tableUsersLoading: boolean = false;
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -32,10 +41,29 @@ export class DashboardHomeComponent implements OnInit {
     ]
   };
 
-  constructor(private titleService: Title) { }
+  constructor(
+    private title: Title,
+    private snackBar: SnackBarUtil,
+    private usersService: UsersService,
+  ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('ג\'סטה | ניהול | תקציר');
+    this.title.setTitle('ג\'סטה | ניהול | תקציר');
+
+    this.tableUsersLoading = true;
+    this.tableUsersLoading = true;
+
+    this.usersService.getAllClients().subscribe({
+      next: (data) => {
+        this.users = data;
+        this.tableUsersDataSource = new MatTableDataSource(this.users);
+        this.tableUsersLoading = false;
+      },
+      error: (error) => {
+        this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+        this.tableUsersLoading = false;
+      }
+    });
   }
 
 }

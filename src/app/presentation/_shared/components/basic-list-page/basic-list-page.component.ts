@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 export class BasicListPageComponent {
 
   @Input() forRoute?: string;
-  @Input() title?: string;
+  @Input() pageTitle?: string;
   @Input() hasCreateButton: boolean = true;
 
 }
