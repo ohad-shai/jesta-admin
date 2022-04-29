@@ -629,4 +629,8 @@ a:hover {
     user-select: none;
 }
 
+.mat-select.readonly .mat-select-arrow {
+    color: transparent;
+}
+
 /* #endregion */

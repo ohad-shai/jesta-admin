@@ -28,7 +28,7 @@ export class BasicItemPageComponent extends MultiComponent implements OnInit {
     if (history.state.itemName)
       this.title.setTitle('ג\'סטה | ניהול | ' + history.state.itemName);
     else
-      this.title.setTitle('ג\'סטה | ניהול | ');
+      this.title.setTitle('ג\'סטה | ניהול | ' + this.titleForCreate);
 
     this.route.data.subscribe(data => {
       this.mode = <ComponentMode>data["mode"];

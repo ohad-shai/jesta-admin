@@ -5,10 +5,12 @@ import { SharedModule } from '../_shared/shared.module';
 import { FavorsRoutingModule } from './favors-routing.module';
 
 import { FavorListComponent } from './favor-list/favor-list.component';
+import { FavorComponent } from './favor/favor.component';
 
 @NgModule({
     declarations: [
-        FavorListComponent
+        FavorListComponent,
+        FavorComponent
     ],
     imports: [
         CommonModule,

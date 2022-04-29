@@ -5,23 +5,18 @@ import { CategoryObjectGQL } from '../objects/category.object.gql';
 @Injectable({
   providedIn: 'root'
 })
-export class GetAllCategoriesGQL extends Query<Response> {
+export class GetAllParentCategoriesGQL extends Query<Response> {
   override document = gql`
-      query GetAllCategories {
-        getAllCategories {
+      query GetAllParentCategories {
+        getAllParentCategories {
           _id
           name
           dateLastModified
-          parentCategory {
-            _id
-            name
-            dateLastModified
-          }
         }
       }
     `;
 }
 
 export interface Response {
-  getAllCategories: CategoryObjectGQL[];
+  getAllParentCategories: CategoryObjectGQL[];
 }

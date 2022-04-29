@@ -2,35 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
-import { FavorsService } from 'src/app/core/services/favors.service';
-import { FavorObjectGQL } from 'src/app/data/graphql/objects/favor.object.gql';
+import { CategoryObjectGQL } from 'src/app/data/graphql/objects/category.object.gql';
+import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
-  selector: 'app-favor-list',
-  templateUrl: './favor-list.component.html'
+  selector: 'app-category-list',
+  templateUrl: './category-list.component.html'
 })
-export class FavorListComponent implements OnInit {
+export class CategoryListComponent implements OnInit {
 
-  favors: FavorObjectGQL[] = [];
+  categories: CategoryObjectGQL[] = [];
   tableColumns: string[] = ['id', 'name', 'actions'];
-  tableDataSource = new MatTableDataSource<FavorObjectGQL>();
+  tableDataSource = new MatTableDataSource<CategoryObjectGQL>();
   tableLoading: boolean = false;
 
   constructor(
     private title: Title,
     private snackBar: SnackBarUtil,
-    private favorsService: FavorsService,
+    private categoriesService: CategoriesService,
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('ג\'סטה | ניהול | ג\'סטות');
+    this.title.setTitle('ג\'סטה | ניהול | קטגוריות');
 
     this.tableLoading = true;
 
-    this.favorsService.getAllFavors().subscribe({
+    this.categoriesService.getAllCategories().subscribe({
       next: (data) => {
-        this.favors = data;
-        this.tableDataSource = new MatTableDataSource(this.favors);
+        this.categories = data;
+        this.tableDataSource = new MatTableDataSource(this.categories);
         this.tableLoading = false;
       },
       error: (error) => {

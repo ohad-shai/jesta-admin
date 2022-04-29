@@ -5,7 +5,6 @@ import { UserSecureUpdateInputGQL } from 'src/app/data/graphql/inputs/user-secur
 import { UserUpdateInputGQL } from 'src/app/data/graphql/inputs/user-update.input.gql';
 import { DeleteUserGQL } from 'src/app/data/graphql/mutations/delete-user.gql';
 import { SecureEmailPasswordAccountUpdateGQL } from 'src/app/data/graphql/mutations/secure-email-password-account-update.gql';
-import { SignUpAdminGQL } from 'src/app/data/graphql/mutations/sign-up-admin.gql';
 import { SignUpUserGQL } from 'src/app/data/graphql/mutations/sign-up-user.gql';
 import { UpdateUserGQL } from 'src/app/data/graphql/mutations/update-user.gql';
 import { GetAllClientsGQL } from 'src/app/data/graphql/queries/get-all-clients.gql';
