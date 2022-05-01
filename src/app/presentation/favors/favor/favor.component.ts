@@ -6,13 +6,16 @@ import { SnackBarUtil } from '../../_shared/utilities/snack-bar.util';
 import { MultiComponent } from '../../_shared/objects/multi-component';
 import { ComponentMode } from '../../_shared/objects/component-mode';
 import { ValidationBundles } from '../../_shared/validators/validation-bundles';
-import { equals } from '../../_shared/validators/equals.validator';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorId } from 'src/app/data/utilities/error-id';
 import { FavorsService } from 'src/app/core/services/favors.service';
 import { PopulatedFavorObjectGQL } from 'src/app/data/graphql/objects/populated-favor.object.gql';
 import { FavorInputGQL } from 'src/app/data/graphql/inputs/favor.input.gql';
 import { UpdateFavorInputGQL } from 'src/app/data/graphql/inputs/update-favor.input.gql';
+import { PaymentTypeEnumGQL } from "src/app/data/graphql/objects/payment-type.enum.gql";
+import { CategoriesService } from 'src/app/core/services/categories.service';
+import { CategoryObjectGQL } from 'src/app/data/graphql/objects/category.object.gql';
+import { requiredIfNotEquals } from '../../_shared/validators/required-if-not-equals.validator';
 
 @Component({
   selector: 'app-favor',
@@ -24,6 +27,12 @@ export class FavorComponent extends MultiComponent implements OnInit {
   favor: PopulatedFavorObjectGQL = new PopulatedFavorObjectGQL();
   form!: FormGroup;
   formLoading: boolean = false;
+  primaryCategories: CategoryObjectGQL[] = [];
+  paymentMethods = [
+    { id: PaymentTypeEnumGQL.FREE, name: "חינם" },
+    { id: PaymentTypeEnumGQL.CASH, name: "מזומן" },
+    { id: PaymentTypeEnumGQL.PAYPAL, name: "PayPal" },
+  ];
 
   constructor(
     private title: Title,
@@ -31,6 +40,7 @@ export class FavorComponent extends MultiComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: SnackBarUtil,
     private favorsService: FavorsService,
+    private categoriesService: CategoriesService,
   ) { super(); }
 
   ngOnInit() {
@@ -38,29 +48,32 @@ export class FavorComponent extends MultiComponent implements OnInit {
       this.mode = <ComponentMode>data["mode"];
       if (this.mode == undefined) throw new Error("The route does not include the \"mode\" data property.");
 
-      if (this.isCreateMode()) {
-        this.form = new FormGroup({
-          firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.emailRequired()),
-          password: new FormControl('', ValidationBundles.passwordRequired()),
-          passwordConfirm: new FormControl('', ValidationBundles.passwordRequired())
-        }, { validators: [equals('passwordConfirm', 'password')] });
-      } else if (this.isUpdateMode()) {
-        this.form = new FormGroup({
-          firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.emailRequired()),
-          password: new FormControl('', ValidationBundles.password()),
-          passwordConfirm: new FormControl('', ValidationBundles.password())
-        }, { validators: [equals('passwordConfirm', 'password')] });
-      } else {
-        this.form = new FormGroup({
-          firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-          email: new FormControl('', ValidationBundles.email()),
-        });
-      }
+      this.form = new FormGroup({
+        category: new FormControl('', [Validators.required]),
+        numOfPeopleNeeded: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)].concat(ValidationBundles.numberOnly())),
+        description: new FormControl('', [Validators.maxLength(300)]),
+        dateToStart: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        dateToEnd: new FormControl('', [Validators.maxLength(50)]),
+        // TODO: hours ?
+        // TODO: cyclicFavor ?
+        sourceAddress: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        // sourceAddressLat: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        // sourceAddressLang: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        destinationAddress: new FormControl('', [Validators.maxLength(50)]),
+        // destinationAddressLat: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        // destinationAddressLang: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        paymentMethod: new FormControl(PaymentTypeEnumGQL.FREE, [Validators.required]),
+        paymentAmount: new FormControl('', [Validators.min(10), Validators.max(10000)].concat(ValidationBundles.numberOnly())),
+      }, { validators: [requiredIfNotEquals('paymentAmount', 'paymentMethod', PaymentTypeEnumGQL.FREE)] });
+
+      this.categoriesService.getAllPrimaryCategories().subscribe({
+        next: (data) => {
+          this.primaryCategories = data;
+        },
+        error: (error) => {
+          this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
+        }
+      });
 
       if (!this.isCreateMode()) {
         this.route.params.subscribe(params => {
@@ -69,9 +82,19 @@ export class FavorComponent extends MultiComponent implements OnInit {
           this.favorsService.getFavorById(params["id"]).subscribe({
             next: (data) => {
               this.favor = data;
-              // this.form.controls["firstName"].setValue(this.favor.firstName);
-              // this.form.controls["lastName"].setValue(this.favor.lastName);
-              // this.form.controls["email"].setValue(this.favor.email);
+              this.form.controls["category"].setValue(this.favor.categoryId![0]._id);
+              this.form.controls["numOfPeopleNeeded"].setValue(this.favor.numOfPeopleNeeded);
+              this.form.controls["description"].setValue(this.favor.description);
+              this.form.controls["dateToStart"].setValue(this.favor.dateToPublish);
+              this.form.controls["dateToEnd"].setValue(this.favor.dateToUnpublished);
+              this.form.controls["sourceAddress"].setValue(this.favor.sourceAddress?.fullAddress);
+              this.form.controls["sourceAddressLat"].setValue(this.favor.sourceAddress?.location.coordinates[0]);
+              this.form.controls["sourceAddressLang"].setValue(this.favor.sourceAddress?.location.coordinates[1]);
+              this.form.controls["destinationAddress"].setValue(this.favor.destinationAddress?.fullAddress);
+              this.form.controls["destinationAddressLat"].setValue(this.favor.destinationAddress?.location.coordinates[0]);
+              this.form.controls["destinationAddressLang"].setValue(this.favor.destinationAddress?.location.coordinates[1]);
+              this.form.controls["paymentAmount"].setValue(this.favor.paymentAmount);
+              this.form.controls["paymentMethod"].setValue(this.favor.paymentMethod);
               this.title.setTitle('ג\'סטה | ניהול | ' + this.favor.getCategoriesTitle());
               this.initialLoading = false;
             },

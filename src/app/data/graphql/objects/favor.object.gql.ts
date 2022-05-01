@@ -6,6 +6,8 @@ export class FavorObjectGQL {
     dateCreated?: Date;
     dateLastModified?: Date;
     dateLockedOut?: Date;
+    dateToExecute?: Date;
+    dateToFinishExecute?: Date;
     dateToPublish?: Date;
     dateToUnpublished?: Date;
     description?: string;
@@ -16,6 +18,7 @@ export class FavorObjectGQL {
     paymentAmount?: number;
     paymentMethod?: string;
     sourceAddress?: AddressObjectGQL;
+    status?: string;
 
     getCategoriesTitle() {
         return "ניקיון בית";

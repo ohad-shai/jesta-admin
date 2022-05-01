@@ -2,7 +2,7 @@ import { PaymentTypeEnumGQL } from "../objects/payment-type.enum.gql";
 import { AddressInputGQL } from "./address.input.gql";
 
 export interface UpdateFavorInputGQL {
-    categoryId: Array<string>;
+    categoryId: string[];
     dateLockedOut: Date;
     dateToPublish: Date;
     dateToUnpublished: Date;

@@ -39,4 +39,20 @@ export class ValidationBundles {
         return [Validators.required].concat(this.password());
     }
 
+    /**
+     * Returns the validation bundle for a decimal only validator.
+     * @returns Returns an array of validators: [pattern].
+     */
+    static numberOnly(): ((control: AbstractControl) => ValidationErrors | null)[] {
+        return [Validators.pattern(/^[0-9]*$/)];
+    }
+
+    /**
+     * Returns the validation bundle for a decimal only validator.
+     * @returns Returns an array of validators: [pattern].
+     */
+    static decimalOnly(): ((control: AbstractControl) => ValidationErrors | null)[] {
+        return [Validators.pattern(/^\d*\.?\d*$/)];
+    }
+
 }

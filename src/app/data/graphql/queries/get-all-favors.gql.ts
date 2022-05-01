@@ -10,25 +10,16 @@ export class GetAllFavorsGQL extends Query<Response> {
         query GetAllFavors {
           getAllFavors {
             _id
+            status
             ownerId
             categoryId
             numOfPeopleNeeded
-            sourceAddress {
-              fullAddress
-              location {
-                coordinates
-              }
-            }
-            destinationAddress {
-              fullAddress
-            }
-            description
             imagesPath
             paymentAmount
             paymentMethod
             dateToPublish
-            dateToUnpublished
-            dateLockedOut
+            dateToExecute
+            dateToFinishExecute
             dateCreated
             dateLastModified
           }
@@ -37,5 +28,5 @@ export class GetAllFavorsGQL extends Query<Response> {
 }
 
 export interface Response {
-  getAllFavors: Array<FavorObjectGQL>;
+  getAllFavors: FavorObjectGQL[];
 }
