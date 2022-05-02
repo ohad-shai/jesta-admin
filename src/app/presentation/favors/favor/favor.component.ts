@@ -16,6 +16,9 @@ import { PaymentTypeEnumGQL } from "src/app/data/graphql/objects/payment-type.en
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { CategoryObjectGQL } from 'src/app/data/graphql/objects/category.object.gql';
 import { requiredIfNotEquals } from '../../_shared/validators/required-if-not-equals.validator';
+import { GooglePlacesWebService } from 'src/app/core/web-services/google-places/google-places.web-service';
+import * as KeyCodes from '@angular/cdk/keycodes';
+import { AutocompletePrediction } from 'src/app/core/web-services/google-places/objects/autocomplete-prediction';
 
 @Component({
   selector: 'app-favor',
@@ -33,6 +36,8 @@ export class FavorComponent extends MultiComponent implements OnInit {
     { id: PaymentTypeEnumGQL.CASH, name: "מזומן" },
     { id: PaymentTypeEnumGQL.PAYPAL, name: "PayPal" },
   ];
+  sourceAddressOptions: AutocompletePrediction[] = [];
+
 
   constructor(
     private title: Title,
@@ -41,6 +46,7 @@ export class FavorComponent extends MultiComponent implements OnInit {
     private snackBar: SnackBarUtil,
     private favorsService: FavorsService,
     private categoriesService: CategoriesService,
+    private googlePlacesWebService: GooglePlacesWebService,
   ) { super(); }
 
   ngOnInit() {
@@ -55,7 +61,6 @@ export class FavorComponent extends MultiComponent implements OnInit {
         dateToStart: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         dateToEnd: new FormControl('', [Validators.maxLength(50)]),
         // TODO: hours ?
-        // TODO: cyclicFavor ?
         sourceAddress: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         // sourceAddressLat: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
         // sourceAddressLang: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
@@ -85,8 +90,8 @@ export class FavorComponent extends MultiComponent implements OnInit {
               this.form.controls["category"].setValue(this.favor.categoryId![0]._id);
               this.form.controls["numOfPeopleNeeded"].setValue(this.favor.numOfPeopleNeeded);
               this.form.controls["description"].setValue(this.favor.description);
-              this.form.controls["dateToStart"].setValue(this.favor.dateToPublish);
-              this.form.controls["dateToEnd"].setValue(this.favor.dateToUnpublished);
+              this.form.controls["dateToStart"].setValue(this.favor.dateToExecute);
+              this.form.controls["dateToEnd"].setValue(this.favor.dateToFinishExecute);
               this.form.controls["sourceAddress"].setValue(this.favor.sourceAddress?.fullAddress);
               this.form.controls["sourceAddressLat"].setValue(this.favor.sourceAddress?.location.coordinates[0]);
               this.form.controls["sourceAddressLang"].setValue(this.favor.sourceAddress?.location.coordinates[1]);
@@ -104,6 +109,18 @@ export class FavorComponent extends MultiComponent implements OnInit {
             }
           });
         });
+      }
+    });
+  }
+
+  onSourceAddressInput(inputText: string) {
+    this.googlePlacesWebService.autocomplete(inputText).subscribe({
+      next: (result) => {
+        console.log(result.predictions);
+        this.sourceAddressOptions = result.predictions;
+      },
+      error: (error) => {
+        this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
       }
     });
   }

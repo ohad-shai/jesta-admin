@@ -19,9 +19,4 @@ export class FavorObjectGQL {
     paymentMethod?: string;
     sourceAddress?: AddressObjectGQL;
     status?: string;
-
-    getCategoriesTitle() {
-        return "ניקיון בית";
-    }
-
 }

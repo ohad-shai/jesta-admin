@@ -79,6 +79,24 @@
                     <div class="sbs-fields">
                         <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
                             <mat-label>כתובת מוצא</mat-label>
+                            <input formControlName="sourceAddress" matInput type="text" (input)="onSourceAddressInput($any($event.target).value)" [matAutocomplete]="sourceAddressAutocomplete" autocomplete="off">
+                            <button *ngIf="this.isEditableMode() && form.controls['sourceAddress'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['sourceAddress'].reset()" tabindex="-1">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-autocomplete #sourceAddressAutocomplete="matAutocomplete">
+                                <mat-option *ngFor="let option of sourceAddressOptions" [value]="option">
+                                    {{ option }}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="form.controls['sourceAddress'].hasError('required')">
+                                יש להזין כתובת מוצא
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['sourceAddress'].hasError('maxlength')">
+                                אורך מקסימאלי הוא 50 תווים
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
+                            <mat-label>כתובת מוצא</mat-label>
                             <input formControlName="sourceAddress" matInput type="text" autocomplete="off" [readonly]="!this.isEditableMode()" />
                             <button *ngIf="this.isEditableMode() && form.controls['sourceAddress'].value" type="button" mat-icon-button matSuffix aria-label="נקה" (click)="form.controls['sourceAddress'].reset()" tabindex="-1">
                                 <mat-icon>close</mat-icon>
@@ -89,7 +107,7 @@
                             <mat-error *ngIf="form.controls['sourceAddress'].hasError('maxlength')">
                                 אורך מקסימאלי הוא 50 תווים
                             </mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
                         <mat-form-field appearance="outline" [attr.readonly]="!this.isEditableMode()">
                             <mat-label>כתובת יעד</mat-label>
                             <input formControlName="destinationAddress" matInput type="text" autocomplete="off" [readonly]="!this.isEditableMode()" />

@@ -6,6 +6,7 @@ import { CreateFavorGQL } from 'src/app/data/graphql/mutations/create-favor.gql'
 import { DeleteFavorGQL } from 'src/app/data/graphql/mutations/delete-favor.gql';
 import { UpdateFavorGQL } from 'src/app/data/graphql/mutations/update-favor.gql';
 import { FavorObjectGQL } from 'src/app/data/graphql/objects/favor.object.gql';
+import { PopulatedFavorObjectGQL } from 'src/app/data/graphql/objects/populated-favor.object.gql';
 import { GetAllFavorsGQL } from 'src/app/data/graphql/queries/get-all-favors.gql';
 import { GetFavorGQL } from 'src/app/data/graphql/queries/get-favor.gql';
 
@@ -26,7 +27,7 @@ export class FavorsService {
     return this.getFavorGQL.watch({
       favorId: id
     }).valueChanges.pipe(
-      map(result => Object.assign(new FavorObjectGQL(), result.data.getFavor))
+      map(result => Object.assign(new PopulatedFavorObjectGQL(), result.data.getFavor))
     );
   }
 

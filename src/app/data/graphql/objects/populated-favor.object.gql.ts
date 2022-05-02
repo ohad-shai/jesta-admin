@@ -8,8 +8,9 @@ export class PopulatedFavorObjectGQL {
     dateCreated?: Date;
     dateLastModified?: Date;
     dateLockedOut?: Date;
+    dateToExecute?: Date;
+    dateToFinishExecute?: Date;
     dateToPublish?: Date;
-    dateToUnpublished?: Date;
     description?: string;
     destinationAddress?: AddressObjectGQL;
     imagesPath?: Array<string>;
@@ -18,9 +19,16 @@ export class PopulatedFavorObjectGQL {
     paymentAmount?: number;
     paymentMethod?: string;
     sourceAddress?: AddressObjectGQL;
+    status?: string;
 
     getCategoriesTitle() {
-        return "ניקיון בית";
+        if (!this.categoryId)
+            return '';
+
+        if (this.categoryId && this.categoryId![0].parentCategory)
+            return (this.categoryId![0].parentCategory.name + ': ' + this.categoryId![0].name);
+        else
+            return this.categoryId![0].name;
     }
 
 }

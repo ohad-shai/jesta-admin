@@ -10,26 +10,28 @@ export class GetFavorGQL extends Query<Response> {
         query GetFavor($favorId: String) {
           getFavor(favorId: $favorId) {
             _id
+            status
             ownerId {
               _id
               firstName
               lastName
-              birthday
               email
-              dateEmailVerified
-              datePasswordModified
               phone
-              address {
-                fullAddress
-              }
               role
               imagePath
-              created_date
+              rating
+              numberOfExecutedJesta
+              mostVolunteered
             }
             categoryId {
               _id
-              name
               dateLastModified
+              name
+              parentCategory {
+                _id
+                name
+                dateLastModified
+              }
             }
             numOfPeopleNeeded
             sourceAddress {
@@ -40,13 +42,17 @@ export class GetFavorGQL extends Query<Response> {
             }
             destinationAddress {
               fullAddress
+              location {
+                coordinates
+              }
             }
             description
             imagesPath
             paymentAmount
             paymentMethod
             dateToPublish
-            dateToUnpublished
+            dateToExecute
+            dateToFinishExecute
             dateLockedOut
             dateCreated
             dateLastModified
