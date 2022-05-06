@@ -16,9 +16,9 @@ import { PaymentTypeEnumGQL } from "src/app/data/graphql/objects/payment-type.en
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { CategoryObjectGQL } from 'src/app/data/graphql/objects/category.object.gql';
 import { requiredIfNotEquals } from '../../_shared/validators/required-if-not-equals.validator';
-import { GooglePlacesWebService } from 'src/app/core/web-services/google-places/google-places.web-service';
-import * as KeyCodes from '@angular/cdk/keycodes';
-import { AutocompletePrediction } from 'src/app/core/web-services/google-places/objects/autocomplete-prediction';
+import { AddressInputGQL } from 'src/app/data/graphql/inputs/address.input.gql';
+import { CoordinatesInputGQL } from 'src/app/data/graphql/inputs/coordinates.input.gql';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-favor',
@@ -36,8 +36,6 @@ export class FavorComponent extends MultiComponent implements OnInit {
     { id: PaymentTypeEnumGQL.CASH, name: "מזומן" },
     { id: PaymentTypeEnumGQL.PAYPAL, name: "PayPal" },
   ];
-  sourceAddressOptions: AutocompletePrediction[] = [];
-
 
   constructor(
     private title: Title,
@@ -45,8 +43,8 @@ export class FavorComponent extends MultiComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: SnackBarUtil,
     private favorsService: FavorsService,
+    private authService: AuthService,
     private categoriesService: CategoriesService,
-    private googlePlacesWebService: GooglePlacesWebService,
   ) { super(); }
 
   ngOnInit() {
@@ -62,11 +60,11 @@ export class FavorComponent extends MultiComponent implements OnInit {
         dateToEnd: new FormControl('', [Validators.maxLength(50)]),
         // TODO: hours ?
         sourceAddress: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-        // sourceAddressLat: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
-        // sourceAddressLang: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        sourceAddressLat: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        sourceAddressLang: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
         destinationAddress: new FormControl('', [Validators.maxLength(50)]),
-        // destinationAddressLat: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
-        // destinationAddressLang: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        destinationAddressLat: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
+        destinationAddressLang: new FormControl('', [Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
         paymentMethod: new FormControl(PaymentTypeEnumGQL.FREE, [Validators.required]),
         paymentAmount: new FormControl('', [Validators.min(10), Validators.max(10000)].concat(ValidationBundles.numberOnly())),
       }, { validators: [requiredIfNotEquals('paymentAmount', 'paymentMethod', PaymentTypeEnumGQL.FREE)] });
@@ -113,28 +111,52 @@ export class FavorComponent extends MultiComponent implements OnInit {
     });
   }
 
-  onSourceAddressInput(inputText: string) {
-    this.googlePlacesWebService.autocomplete(inputText).subscribe({
-      next: (result) => {
-        console.log(result.predictions);
-        this.sourceAddressOptions = result.predictions;
-      },
-      error: (error) => {
-        this.snackBar.show("אירעה שגיאה, אנא נסה שוב");
-      }
-    });
+  onSourceAddressChange(address: any) {
+    this.form.controls['sourceAddress'].setValue(address.formatted_address);
+    this.form.controls['sourceAddressLat'].setValue(address.geometry.location.lat());
+    this.form.controls['sourceAddressLang'].setValue(address.geometry.location.lng());
+  }
+
+  onDestinationAddressChange(address: any) {
+    this.form.controls['destinationAddress'].setValue(address.formatted_address);
+    this.form.controls['destinationAddressLat'].setValue(address.geometry.location.lat());
+    this.form.controls['destinationAddressLang'].setValue(address.geometry.location.lng());
   }
 
   performCreate() {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-    this.favorsService.createFavor(<FavorInputGQL>{
-      // firstName: this.form.controls['firstName'].value,
-      // lastName: this.form.controls['lastName'].value,
-      // email: this.form.controls['email'].value.toLowerCase(),
-      // password: this.form.controls['password'].value,
-    }).subscribe({
+
+    let favor = <FavorInputGQL>{
+      categoryId: [this.form.controls['category'].value],
+      numOfPeopleNeeded: this.form.controls['numOfPeopleNeeded'].value,
+      description: (this.form.controls['description'].value ? this.form.controls['description'].value : null),
+      dateToExecute: this.form.controls['dateToStart'].value,
+      dateToFinishExecute: (this.form.controls['dateToEnd'].value ? this.form.controls['dateToEnd'].value : null),
+      sourceAddress: <AddressInputGQL>{
+        fullAddress: this.form.controls['sourceAddress'].value,
+        location: <CoordinatesInputGQL>{
+          coordinates: [
+            this.form.controls['sourceAddressLat'].value,
+            this.form.controls['sourceAddressLang'].value
+          ]
+        }
+      },
+      destinationAddress: (this.form.controls['destinationAddress'].value ? <AddressInputGQL>{
+        fullAddress: this.form.controls['destinationAddress'].value,
+        location: <CoordinatesInputGQL>{
+          coordinates: [
+            this.form.controls['destinationAddressLat'].value,
+            this.form.controls['destinationAddressLang'].value
+          ]
+        }
+      } : null),
+      paymentAmount: (this.form.controls['paymentAmount'].value ? this.form.controls['paymentAmount'].value : null),
+      paymentMethod: this.form.controls['paymentMethod'].value,
+      ownerId: this.authService.getCurrentUser()!.id,
+    };
+    this.favorsService.createFavor(favor).subscribe({
       next: () => {
         this.router.navigate(['/favors']);
         this.snackBar.show("הג\'סטה נוספה בהצלחה");

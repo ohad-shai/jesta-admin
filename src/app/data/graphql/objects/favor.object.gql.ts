@@ -19,4 +19,5 @@ export class FavorObjectGQL {
     paymentMethod?: string;
     sourceAddress?: AddressObjectGQL;
     status?: string;
+
 }

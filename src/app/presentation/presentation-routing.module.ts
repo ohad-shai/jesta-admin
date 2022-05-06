@@ -33,21 +33,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'competitions',
-    loadChildren: () => import('./competitions/competitions.module').then(m => m.CompetitionsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'reports',
-    loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'managers',
     loadChildren: () => import('./managers/managers.module').then(m => m.ManagersModule),
     canActivate: [AuthGuard]

@@ -12,7 +12,7 @@ import { FavorObjectGQL } from 'src/app/data/graphql/objects/favor.object.gql';
 export class FavorListComponent implements OnInit {
 
   favors: FavorObjectGQL[] = [];
-  tableColumns: string[] = ['id', 'name', 'actions'];
+  tableColumns: string[] = ['id', 'sourceAddress', 'dateCreated', 'actions'];
   tableDataSource = new MatTableDataSource<FavorObjectGQL>();
   tableLoading: boolean = false;
 

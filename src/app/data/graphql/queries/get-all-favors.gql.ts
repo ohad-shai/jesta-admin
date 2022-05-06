@@ -22,6 +22,9 @@ export class GetAllFavorsGQL extends Query<Response> {
             dateToFinishExecute
             dateCreated
             dateLastModified
+            sourceAddress {
+              fullAddress
+            }
           }
         }
     `;

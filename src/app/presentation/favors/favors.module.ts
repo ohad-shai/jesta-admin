@@ -6,6 +6,7 @@ import { FavorsRoutingModule } from './favors-routing.module';
 
 import { FavorListComponent } from './favor-list/favor-list.component';
 import { FavorComponent } from './favor/favor.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { FavorComponent } from './favor/favor.component';
     imports: [
         CommonModule,
         SharedModule,
-        FavorsRoutingModule
+        FavorsRoutingModule,
+        GooglePlaceModule
     ]
 })
 export class FavorsModule {

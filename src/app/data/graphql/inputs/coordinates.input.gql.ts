@@ -1,4 +1,4 @@
 
-export interface CoordinatesInputGQL {
-    coordinates: Array<number>;
+export class CoordinatesInputGQL {
+    coordinates!: number[];
 }

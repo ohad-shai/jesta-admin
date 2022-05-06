@@ -1,5 +1,5 @@
 export enum PaymentTypeEnumGQL {
-    PAYPAL,
-    FREE,
-    CASH
+    PAYPAL = "PAYPAL",
+    FREE = "FREE",
+    CASH = "CASH",
 }

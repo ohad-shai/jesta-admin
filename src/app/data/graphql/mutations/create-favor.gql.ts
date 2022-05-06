@@ -7,30 +7,10 @@ import { FavorObjectGQL } from '../objects/favor.object.gql';
 })
 export class CreateFavorGQL extends Mutation<Response> {
   override document = gql`
-        mutation CreateFavor($favor: FavorInput) {
+        mutation CreateFavorGQL($favor: FavorInput) {
           createFavor(favor: $favor) {
             _id
-            ownerId
-            categoryId
-            numOfPeopleNeeded
-            sourceAddress {
-              fullAddress
-              location {
-                coordinates
-              }
-            }
-            destinationAddress {
-              fullAddress
-            }
-            description
-            imagesPath
-            paymentAmount
-            paymentMethod
-            dateToPublish
-            dateToUnpublished
-            dateLockedOut
-            dateCreated
-            dateLastModified
+            status
           }
         }
     `;

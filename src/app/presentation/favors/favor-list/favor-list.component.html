@@ -5,29 +5,34 @@
                 <!-- Id Column -->
                 <ng-container matColumnDef="id" class="mat-column-id">
                     <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
-                    <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element.getCategoriesTitle() }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
+                    <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
                 </ng-container>
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef>קטגוריה</mat-header-cell>
-                    <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element.getCategoriesTitle() }" mat-cell *matCellDef="let element">{{ element.getCategoriesTitle() }}</mat-cell>
+                <!-- SourceAddress Column -->
+                <ng-container matColumnDef="sourceAddress">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>כתובת</mat-header-cell>
+                    <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element">{{ element.sourceAddress.fullAddress }}</mat-cell>
+                </ng-container>
+                <!-- DateCreated Column -->
+                <ng-container matColumnDef="dateCreated">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>תאריך</mat-header-cell>
+                    <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element">{{ element.dateCreated | date }}</mat-cell>
                 </ng-container>
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions" class="mat-column-actions">
                     <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
                     <mat-cell mat-cell *matCellDef="let element">
                         <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
-                            <button [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element.getCategoriesTitle() }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
-                            <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element.getCategoriesTitle() }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
-                            <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element.getCategoriesTitle() }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                            <button [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                            <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                            <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
                         </div>
                         <div *ifScreenBelow="'md'">
                             <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element.getCategoriesTitle() }" mat-menu-item type="button">עריכה</button>
-                                <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element.getCategoriesTitle() }" mat-menu-item type="button">מחיקה</button>
+                                <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element._id }" mat-menu-item type="button">עריכה</button>
+                                <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element._id }" mat-menu-item type="button">מחיקה</button>
                             </mat-menu>
                         </div>
                     </mat-cell>

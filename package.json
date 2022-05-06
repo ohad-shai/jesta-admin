@@ -25,6 +25,7 @@
     "chart.js": "^3.7.1",
     "graphql": "^16.3.0",
     "ng2-charts": "^3.0.9",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
