@@ -14,7 +14,7 @@
                 </ng-container>
                 <!-- DateCreated Column -->
                 <ng-container matColumnDef="dateCreated">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef>תאריך</mat-header-cell>
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>תאריך פירסום</mat-header-cell>
                     <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element">{{ element.dateCreated | date }}</mat-cell>
                 </ng-container>
                 <!-- Actions Column -->

@@ -58,7 +58,6 @@ export class FavorComponent extends MultiComponent implements OnInit {
         description: new FormControl('', [Validators.maxLength(300)]),
         dateToStart: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         dateToEnd: new FormControl('', [Validators.maxLength(50)]),
-        // TODO: hours ?
         sourceAddress: new FormControl('', [Validators.required, Validators.maxLength(50)]),
         sourceAddressLat: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
         sourceAddressLang: new FormControl('', [Validators.required, Validators.maxLength(30)].concat(ValidationBundles.decimalOnly())),
@@ -173,13 +172,35 @@ export class FavorComponent extends MultiComponent implements OnInit {
     if (this.form.invalid || this.formLoading) return;
 
     this.formLoading = true;
-    this.favorsService.updateFavor(this.favor._id!, <UpdateFavorInputGQL>{
-      // id: this.favor.id,
-      // firstName: this.form.controls['firstName'].value,
-      // lastName: this.form.controls['lastName'].value,
-      // email: this.form.controls['email'].value.toLowerCase(),
-      // password: (this.form.controls['password'].value ? this.form.controls['password'].value : undefined),
-    }).subscribe({
+
+    let favor = <UpdateFavorInputGQL>{
+      categoryId: [this.form.controls['category'].value],
+      numOfPeopleNeeded: this.form.controls['numOfPeopleNeeded'].value,
+      description: (this.form.controls['description'].value ? this.form.controls['description'].value : null),
+      dateToExecute: this.form.controls['dateToStart'].value,
+      dateToFinishExecute: (this.form.controls['dateToEnd'].value ? this.form.controls['dateToEnd'].value : null),
+      sourceAddress: <AddressInputGQL>{
+        fullAddress: this.form.controls['sourceAddress'].value,
+        location: <CoordinatesInputGQL>{
+          coordinates: [
+            this.form.controls['sourceAddressLat'].value,
+            this.form.controls['sourceAddressLang'].value
+          ]
+        }
+      },
+      destinationAddress: (this.form.controls['destinationAddress'].value ? <AddressInputGQL>{
+        fullAddress: this.form.controls['destinationAddress'].value,
+        location: <CoordinatesInputGQL>{
+          coordinates: [
+            this.form.controls['destinationAddressLat'].value,
+            this.form.controls['destinationAddressLang'].value
+          ]
+        }
+      } : null),
+      paymentAmount: (this.form.controls['paymentAmount'].value ? this.form.controls['paymentAmount'].value : null),
+      paymentMethod: this.form.controls['paymentMethod'].value,
+    };
+    this.favorsService.updateFavor(this.favor._id!, favor).subscribe({
       next: (result) => {
         this.router.navigate(['/favors/' + this.favor._id!]);
         this.snackBar.show("הג\'סטה עודכנה בהצלחה");
