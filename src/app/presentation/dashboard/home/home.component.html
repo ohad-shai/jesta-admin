@@ -9,7 +9,7 @@
                 <a [routerLink]="['/users']" class="d-flex">
                     <div class="flex-fill px-3 py-2">
                         <h3 class="txt-success font-weight-bold mb-2">משתמשים</h3>
-                        <div class="txt-lg txt-primary">15</div>
+                        <div class="txt-lg txt-primary">{{ numOfUsers }}</div>
                     </div>
                     <div class="px-4 py-3">
                         <mat-icon class="icon-lg">people</mat-icon>
@@ -20,7 +20,7 @@
                 <a [routerLink]="['/favors']" class="d-flex">
                     <div class="flex-fill px-3 py-2">
                         <h3 class="txt-sky font-weight-bold mb-2">ג'סטות מבוקשות</h3>
-                        <div class="txt-lg txt-primary">102</div>
+                        <div class="txt-lg txt-primary">{{ numOfRequestedFavors }}</div>
                     </div>
                     <div class="px-4 py-3">
                         <mat-icon class="icon-lg">handshake</mat-icon>
@@ -31,7 +31,7 @@
                 <a [routerLink]="['/favors']" class="d-flex">
                     <div class="flex-fill px-3 py-2">
                         <h3 class="txt-pink font-weight-bold mb-2">ג'סטות בביצוע</h3>
-                        <div class="txt-lg txt-primary">5</div>
+                        <div class="txt-lg txt-primary">{{ numOfOnProgressFavors }}</div>
                     </div>
                     <div class="px-4 py-3">
                         <mat-icon class="icon-lg">report</mat-icon>
@@ -42,7 +42,7 @@
                 <a [routerLink]="['/favors']" class="d-flex">
                     <div class="flex-fill px-3 py-2">
                         <h3 class="txt-warning font-weight-bold mb-2">ג'סטות שבוצעו</h3>
-                        <div class="txt-lg txt-primary">56</div>
+                        <div class="txt-lg txt-primary">{{ numOfDoneFavors }}</div>
                     </div>
                     <div class="px-4 py-3">
                         <mat-icon class="icon-lg">call</mat-icon>
@@ -52,14 +52,17 @@
         </section>
         <section class="sbs-forms flex-jc-center gap-3 sm-gap-4 lg-gap-5 px-0 xs-px-3 py-0 mb-5">
             <mat-card class="mat-elevation-z4 p-4 sm-p-5">
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+                <h2>משתמשים</h2>
+                <canvas baseChart [data]="usersChartData" [options]="usersChartOptions" [type]="'bar'"></canvas>
             </mat-card>
             <mat-card class="mat-elevation-z4 p-4 sm-p-5">
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+                <h2>ג'סטות</h2>
+                <canvas baseChart [data]="favorsChartData" [options]="favorsChartOptions" [type]="'bar'"></canvas>
             </mat-card>
         </section>
         <section class="sbs-forms flex-jc-center gap-3 sm-gap-4 lg-gap-5 p-0">
             <mat-card class="mat-elevation-z4">
+                <h2 class="px-4 mb-1">משתמשים</h2>
                 <div class="table-wrapper mb-2">
                     <table mat-table recycleRows [dataSource]="tableUsersDataSource">
                         <!-- Id Column -->
@@ -108,41 +111,47 @@
                 </div>
             </mat-card>
             <mat-card class="mat-elevation-z4">
+                <h2 class="px-4 mb-1">ג'סטות</h2>
                 <div class="table-wrapper mb-2">
-                    <table mat-table recycleRows [dataSource]="tableUsersDataSource">
+                    <table mat-table recycleRows [dataSource]="tableFavorsDataSource">
                         <!-- Id Column -->
                         <ng-container matColumnDef="id" class="mat-column-id">
                             <mat-header-cell mat-header-cell *matHeaderCellDef class="mat-column-id">#</mat-header-cell>
-                            <mat-cell [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
+                            <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element; let i = index;" class="mat-column-id">{{ i + 1 }}</mat-cell>
                         </ng-container>
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell mat-header-cell *matHeaderCellDef>שם מלא</mat-header-cell>
-                            <mat-cell [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-cell *matCellDef="let element">{{ element.getFullName() }}</mat-cell>
+                        <!-- SourceAddress Column -->
+                        <ng-container matColumnDef="sourceAddress">
+                            <mat-header-cell mat-header-cell *matHeaderCellDef>כתובת</mat-header-cell>
+                            <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element">{{ element.sourceAddress.fullAddress }}</mat-cell>
+                        </ng-container>
+                        <!-- DateCreated Column -->
+                        <ng-container matColumnDef="dateCreated">
+                            <mat-header-cell mat-header-cell *matHeaderCellDef>תאריך פירסום</mat-header-cell>
+                            <mat-cell [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-cell *matCellDef="let element">{{ element.dateCreated | date }}</mat-cell>
                         </ng-container>
                         <!-- Actions Column -->
                         <ng-container matColumnDef="actions" class="mat-column-actions">
                             <mat-header-cell mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
                             <mat-cell mat-cell *matCellDef="let element">
                                 <div *ifScreenAbove="'md'" class="d-flex gap-2 px-1">
-                                    <button [routerLink]="['/users/' + element.id]" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
-                                    <button [routerLink]="['/users/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
-                                    <button [routerLink]="['/users/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
+                                    <button [routerLink]="['/favors/' + element._id]" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-info">פרטים</button>
+                                    <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-warning">עריכה</button>
+                                    <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element._id }" mat-raised-button type="button" class="btn-outline-danger">מחיקה</button>
                                 </div>
                                 <div *ifScreenBelow="'md'">
                                     <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
                                         <mat-icon>more_vert</mat-icon>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <button [routerLink]="['/users/' + element.id + '/edit']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">עריכה</button>
-                                        <button [routerLink]="['/users/' + element.id + '/delete']" [state]="{ itemName: element.getFullName() }" mat-menu-item type="button">מחיקה</button>
+                                        <button [routerLink]="['/favors/' + element._id + '/edit']" [state]="{ itemName: element._id }" mat-menu-item type="button">עריכה</button>
+                                        <button [routerLink]="['/favors/' + element._id + '/delete']" [state]="{ itemName: element._id }" mat-menu-item type="button">מחיקה</button>
                                     </mat-menu>
                                 </div>
                             </mat-cell>
                         </ng-container>
 
-                        <mat-header-row *matHeaderRowDef="tableUsersColumns"></mat-header-row>
-                        <mat-row matRipple *matRowDef="let row; columns: tableUsersColumns; let i = index"></mat-row>
+                        <mat-header-row *matHeaderRowDef="tableFavorsColumns"></mat-header-row>
+                        <mat-row matRipple *matRowDef="let row; columns: tableFavorsColumns; let i = index"></mat-row>
 
                         <!-- If no data: -->
                         <tr class="mat-row" *matNoDataRow>
@@ -151,7 +160,7 @@
                     </table>
                 </div>
                 <!-- If loading: -->
-                <div class="loading-blocker" *ngIf="tableUsersLoading">
+                <div class="loading-blocker" *ngIf="tableFavorsLoading">
                     <div class="loading-sheen"></div>
                 </div>
             </mat-card>
