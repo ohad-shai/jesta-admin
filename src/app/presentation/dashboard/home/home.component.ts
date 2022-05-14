@@ -50,9 +50,9 @@ export class DashboardHomeComponent implements OnInit {
     }
   };
   public usersChartData: ChartData<'bar'> = {
-    labels: ['1/1', '2/1', '3/1', '4/1', '5/1', '6/1', '7/1'],
+    labels: [],
     datasets: [
-      { data: [2, 4, 7, 5, 9, 13, 10] }
+      { data: [] }
     ]
   };
 
@@ -78,9 +78,9 @@ export class DashboardHomeComponent implements OnInit {
     }
   };
   public favorsChartData: ChartData<'bar'> = {
-    labels: ['1/1', '2/1', '3/1', '4/1', '5/1', '6/1', '7/1'],
+    labels: [],
     datasets: [
-      { data: [20, 46, 70, 59, 99, 60, 80] }
+      { data: [] }
     ]
   };
 
@@ -98,13 +98,29 @@ export class DashboardHomeComponent implements OnInit {
 
     this.dashboardService.getDashboard().subscribe({
       next: (result) => {
+        // Top Summary Counters:
         this.numOfUsers = result.data.getNumOfUsers;
         this.numOfRequestedFavors = result.data.getNumberOfRequestedJesta;
         this.numOfOnProgressFavors = result.data.getNumberOfOnProgressJesta;
         this.numOfDoneFavors = result.data.getNumberOfExecutedJesta;
 
-        // TODO: charts
+        // 2 Big Charts:
+        // Mock Data: [1, 3, 4, 6, 2, 5, 7, 5, 6, 9, 10, 14, 5, 9, 12, 18, 15, 16, 19, 22, 25, 15, 18, 20, 16, 22, 25, 28, 26, 32]
+        // Server Data: result.data.getJestaRegistrationLastMonth.dataSets.reverse()
+        this.usersChartData = {
+          labels: result.data.getUsersRegistrationLastMonth.labels.map(x => x.substring(0, x.lastIndexOf('/'))).reverse(),
+          datasets: [
+            { data: result.data.getUsersRegistrationLastMonth.dataSets.reverse() }
+          ]
+        };
+        this.favorsChartData = {
+          labels: result.data.getJestaRegistrationLastMonth.labels.map(x => x.substring(0, x.lastIndexOf('/'))).reverse(),
+          datasets: [
+            { data: result.data.getJestaRegistrationLastMonth.dataSets.reverse() }
+          ]
+        };
 
+        // 2 Tables:
         this.users = result.data.getAllUsers.map(x => new UserModel(x._id, x.firstName, x.lastName));
         this.tableUsersDataSource = new MatTableDataSource(this.users);
         this.tableUsersLoading = false;

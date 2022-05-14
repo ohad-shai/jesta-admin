@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { gql, Query } from 'apollo-angular';
 import { FavorObjectGQL } from '../objects/favor.object.gql';
+import { GraphDataObjectGQL } from '../objects/graph-data.object.gql';
 import { UserObjectGQL } from '../objects/user.object.gql';
 
 @Injectable({
@@ -13,6 +14,14 @@ export class GetDashboardGQL extends Query<Response> {
           getNumberOfRequestedJesta
           getNumberOfOnProgressJesta
           getNumberOfExecutedJesta
+          getUsersRegistrationLastMonth {
+            labels
+            dataSets
+          }
+          getJestaRegistrationLastMonth {
+            labels
+            dataSets
+          }
           getAllUsers {
             _id
             firstName
@@ -46,6 +55,8 @@ export interface Response {
   getNumberOfRequestedJesta: number;
   getNumberOfOnProgressJesta: number;
   getNumberOfExecutedJesta: number;
+  getUsersRegistrationLastMonth: GraphDataObjectGQL;
+  getJestaRegistrationLastMonth: GraphDataObjectGQL;
   getAllUsers: UserObjectGQL[];
   getAllFavors: FavorObjectGQL[];
 }
