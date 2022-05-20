@@ -1,27 +1,21 @@
-# JestaAdmin
+# Jesta (Admin Interface)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
+Jesta is a platform that connects people who need help in needs that arise in their daily lives, with people who are willing to do them favors (Jesta's - such as babysitting, delivering, lending, etc), either free or paid, and based on geographic location.
+The project was developed for Full Stack specialization studied in [The College of Management](https://english.colman.ac.il/), as part of undergraduate studies in computer science.
 
-## Development server
+Jesta is a teamwork, developed by: Ohad Shai, Michael Garbuzov, Daniel Baranes, Itay Frishman, and Noam Peleg.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### View demo: (In Progress)
 
-## Code scaffolding
+## Technologies
+- Client Side: Angular, Angular Material, Apollo Client
+- Server Side: Node.js, Express, MongoDB, GraphQL
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Images
+### Dashboard Screen:
+![Dashboard](https://user-images.githubusercontent.com/72609649/169498737-38e91388-f94f-403b-9032-95950cc500c7.png)
 
-## Build
+## License
+- No commercial use.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The source code is open to watch and visible to everyone. However, we worked a lot on this project so that it would be part of our portfolio, so we do not allow commercial use of our project.
